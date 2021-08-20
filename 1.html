@@ -1,0 +1,94 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Ham Radio RF Exposure Calculator</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/local.css" rel="stylesheet">
+	<link rel="shortcut icon" href="img/firefly.svg" sizes="any" type="image/svg+xml">
+</head>
+<body>
+<main>
+	<div class="container-fluid p-5">
+        <div class="row bg-light">
+            <h1>RF Exposure Assessment Tool</h1>
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </div>  
+        <div class="row mt-3">               
+                <h2>Step 1 - Determine Maximum Radio Output Power</h2>
+                <p>The first step is to discover and enter the radio's maximum output power. This information
+                    is usually found in the specifications section of the radio's manual. It may sometimes
+                    be displayed within the radio's settings. When evaluating a multiband station, for example
+                    an HF transceiver that does 160m to 10m, one can almost always calculate the entire station based
+                    on the maximum power output at the highest frequency - in this example at the top end of the 10m band.
+                    However, if the radio has multiple power levels depending on frequency, each band and power combination
+                    will need to be calculated separatly. For example, an HF + 6m transceiver will often
+                    have an output of 100 W for 160m to 10m but only 50 W on 6m. In this case, one would need to calculate
+                    an 10m HF 100 W exposure and a VHF 6m MHz 50W exposure. Mobile style radios will have similar calculations -
+                    for example many mobile radios output 50 W on 2m but only 35 W on 70cm. Inspect your radio's manual
+                    to detemine which frequency and power level(s) you need to calculate.
+                </p>
+                <p>
+                    For the best calculation, use the highest frequency within the band to be assessed. For example,
+                    to assess a 2m radio, choose 148.0 MHz. For a 160m - 10m radio use 27.900 MHz.
+                    Consult the <a target="_blank" href="http://www.arrl.org/files/file/Regulatory/Band%20Chart/Band%20Chart%20-%2011X17%20Color.pdf">ARRL US Amateur Radio Bands for the proper value.</a>
+                </p>
+        </div>
+        <div class="row">
+                <p>Enter the radio, frequency, and power level to be evaluated:</p>
+                <form id="report" name="report" class="form-l">
+                    <div class="container-md">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="radioname">Radio Make/Model</label>
+                                    <input type="text" class="form-control" id="radioname" name="radioname" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="frequency">Frequency</label>
+                                    <br><i>Enter the frequency in MHz in the format NNN.NNN.</i>
+                                    <input type="text" class="form-control" id="frequency" name="frequency" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="power">Power Output in Watts</label>
+                                    <br><i>Use only whole integers with no other label - e.g. 100</i>
+                                    <input type="text" class="form-control" id="power" name="power" required>
+                                </div>
+                                <div class="mb-3">
+                                    <button type="button" class="btn btn-primary" onclick="nextClick('2')">Next</button>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>                
+        </div>
+	</div>
+</main>
+<footer>
+        <div class="container-fluid p-5">
+        <div class="row">               
+            <div class="main-content alert alert-danger">
+                <p><b>Important Disclaimer</b></p>
+                <p>This site is one interpretation of the requirements of an amateur radio operator's obglications
+                    and method for ensuring compliance with the United States Federal Communication Comission's 
+                    requirements for RF exposure safety and analysis as required in OET Bulletin 65 and other 
+                    rules and regulations. This site is only guidance and may be incorrect or out-of-date with
+                    current rules and interpretations of such rules. Use of this site is solely at your own risk
+                    and the author(s) and operator(s) disclaim all liability resulting in any penalty or injury based
+                    on information from this site. This site must never be used to ensure public safety or for commercial
+                    purposes.
+                </p>
+            </div>   
+        </div>
+    </div>
+</footer>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/rf.js"></script>
+</body>
+</html>

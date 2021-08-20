@@ -1,0 +1,128 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Ham Radio RF Exposure Calculator</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/local.css" rel="stylesheet">
+	<link rel="shortcut icon" href="img/firefly.svg" sizes="any" type="image/svg+xml">
+</head>
+<body>
+	<div class="container-fluid p-5">
+        <div class="row bg-light">
+            <h1>RF Exposure Assessment Tool</h1>
+            <div class="progress p-0">
+                <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </div>  
+        <div class="row mt-3">             
+                <h2>Step 3 - Determine Antenna Gain</h2>
+                <p>The next step is to discover and determine the gain of your antenna. Commercial
+                    manufacturers will publish the gain in dBi (gain over a theoretical antenna)
+                    for each band they are designed to be operated on. Look up the antenna to be 
+                    assessed on the manufacturer's website.
+                </p>
+                <p>If the information is unknown, or the antenna is a homebrew, use the table provided
+                    by the ARRL and the RSGB to approximate the gain.
+                </p>
+                <p>Note: For a highly directional antenna such as a Yagi, keep in mind that this
+                calcuator will only provide the "worse case" scenario. It may be valuable depending
+                on installation location to perform more precise calculations in different directions/gains
+                when an antenna isn't generally rotated. Performing this is outside the scope of this calculator.
+                </p>
+                
+                <p>Enter the antenna information to be evaluated:</p>
+                <form id="report" name="report" class="form-l">
+                    <div class="container-md">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="antennatype">Antenna Type</label>
+                                    <input type="text" class="form-control" id="antennatype" name="antennatype" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="antennagain">Antenna Gain</label>
+                                    <br><i>Number only; maximum of one decimal place (e.g. 2.1) - Do not include "dB"</i>
+                                    <input type="text" class="form-control" id="antennagain" name="antennagain" required>
+                                </div>
+                                <div class="mb-3">
+                                    <button type="button" class="btn btn-primary" onclick="backClick('2')">Back</button>
+                                    <button type="button" class="btn btn-primary" onclick="nextClick('4')">Next</button>
+                                </div>
+                            </div>
+                            <div class="col-6 px-5 report-out">
+                                <div class="mb-3 row bg-primary">
+                                    <p class="text-center text-white text-bold"><b>Entered Station Information</b></p>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-sm-6 col-form-label" for="radioname">Radio</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control-plaintext" id="radioname" name="radioname" readonly>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label  class="col-sm-6 col-form-label" for="frequency">Frequency</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control-plaintext" id="frequency" name="frequency" readonly>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label  class="col-sm-6 col-form-label" for="power">Radio Power Out</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control-plaintext" id="power" name="power" readonly>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-sm-6 col-form-label" for="feedtype">Feedline Type</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control-plaintext" id="feedtype" name="feedtype" readonly>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-sm-6 col-form-label" for="feedlength">Feedline Length (ft)</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control-plaintext" id="feedlength" name="feedlength" readonly>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-sm-6 col-form-label" for="feedloss">Power Loss per 100ft (dB)</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control-plaintext" id="feedloss" name="feedloss" readonly>
+                                    </div>
+                                </div>
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>                
+        </div>
+	</div>
+</main>
+<footer>
+        <div class="container-fluid p-5">
+        <div class="row">               
+            <div class="main-content alert alert-danger">
+                <p><b>Important Disclaimer</b></p>
+                <p>This site is one interpretation of the requirements of an amateur radio operator's obglications
+                    and method for ensuring compliance with the United States Federal Communication Comission's 
+                    requirements for RF exposure safety and analysis as required in OET Bulletin 65 and other 
+                    rules and regulations. This site is only guidance and may be incorrect or out-of-date with
+                    current rules and interpretations of such rules. Use of this site is solely at your own risk
+                    and the author(s) and operator(s) disclaim all liability resulting in any penalty or injury based
+                    on information from this site. This site must never be used to ensure public safety or for commercial
+                    purposes.
+                </p>
+            </div>   
+        </div>
+    </div>
+</footer>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/rf.js"></script>
+
+</body>
+</html>

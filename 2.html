@@ -1,0 +1,125 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Ham Radio RF Exposure Calculator</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/local.css" rel="stylesheet">
+	<link rel="shortcut icon" href="img/firefly.svg" sizes="any" type="image/svg+xml">
+</head>
+<body>
+<main>
+	<div class="container-fluid p-5">
+        <div class="row bg-light">
+            <h1>RF Exposure Assessment Tool</h1>
+            <div class="progress p-0">
+                <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </div>  
+        <div class="row mt-3">             
+                <h2>Step 2 - Determine Feedline Loss</h2>
+                <p>The next step is to discover and determine the power loss created by the feedline
+                    between the radio and the antenna. For the purposes of this calculation, to err on the side of caution,
+                    small losses from barrel connectors, etc. will be ignored.
+                </p>
+                <p>Measure or otherwise determine the lenght of the feedline. This should be the completele
+                    length of all feedline including any jumpers or drip loops. Record this number below in feet.
+                    As this tool is using customary US measurements, metric users can multiply the length of a 
+                    feedline in meters by 3.281 to convert to feet.
+                </p>
+                <p>Determine the type of feedline used between your radio and the antenna. The loss is, in general,
+                    greater for thinner coax and less for thicker coax. If you know the manufacturer of the feedline
+                    in use, the manufacturer will publish a table of losses in dB at a given frequency per 100ft. 
+                    Determine where the frequency being measured falls into the chart and choose the larger
+                    value in the range where the frequency lands. For example, if the chart lists
+                    a 10 MHz value and a 30 MHz value and the frequency being measured is 14.225 (i.e. 20m) then
+                    choose the upper value of the loss in dB at 30 MHz. This will ensure that maximum safety is applied
+                    to the calulation.
+                </p>
+                <p>
+                    If you are unable to determine the loss by published manufacturer, consider using the
+                    <a target="_blank" href="https://static.dxengineering.com/global/images/chartsguides/d/dxe-8x.pdf">information
+                    published by DX Engineering</a>, the 
+                    <a target="_blank" href="https://www.timesmicrowave.com/Calculator">Times Microwave Calculator</a>,
+                    or other major vendor source as an approximation.
+                </p>
+                
+                </p>
+                <p>Enter the feedline info to be evaluated:</p>
+                <form id="report" name="report" class="form-l">
+                    <div class="container-md">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="feedtype">Feedline Type</label>
+                                    <input type="text" class="form-control" id="radioname" name="feedtype" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="feedlength">Feedline Length (ft)</label>
+                                    <br><i>Number only; maximum of one decimal place (e.g. 25.5) - Do not include "ft"</i>
+                                    <input type="text" class="form-control" id="feedlength" name="feedlength" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="feedloss">Power Loss per 100ft (dB)</label>
+                                    <br><i>Number only; maximum of one decimal place (e.g. 2.1) - Do not include "dB"</i>
+                                    <input type="text" class="form-control" id="feedloss" name="feedloss" required>
+                                </div>
+                                <div class="mb-3">
+                                    <button type="button" class="btn btn-primary" onclick="backClick('1')">Back</button>
+                                    <button type="button" class="btn btn-primary" onclick="nextClick('3')">Next</button>
+                                </div>
+                            </div>
+
+                            <div class="col-6 px-5 report-out">
+                                <div class="mb-3 row bg-primary">
+                                    <p class="text-center text-white text-bold"><b>Entered Station Information</b></p>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-sm-6 col-form-label" for="radioname">Radio</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control-plaintext" id="radioname" name="radioname" readonly>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label  class="col-sm-6 col-form-label" for="frequency">Frequency</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control-plaintext" id="frequency" name="frequency" readonly>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label  class="col-sm-6 col-form-label" for="power">Radio Power Out</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control-plaintext" id="power" name="power" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>                
+        </div>
+	</div>
+</main>
+<footer>
+        <div class="container-fluid p-5">
+        <div class="row">               
+            <div class="main-content alert alert-danger">
+                <p><b>Important Disclaimer</b></p>
+                <p>This site is one interpretation of the requirements of an amateur radio operator's obglications
+                    and method for ensuring compliance with the United States Federal Communication Comission's 
+                    requirements for RF exposure safety and analysis as required in OET Bulletin 65 and other 
+                    rules and regulations. This site is only guidance and may be incorrect or out-of-date with
+                    current rules and interpretations of such rules. Use of this site is solely at your own risk
+                    and the author(s) and operator(s) disclaim all liability resulting in any penalty or injury based
+                    on information from this site. This site must never be used to ensure public safety or for commercial
+                    purposes.
+                </p>
+            </div>   
+        </div>
+    </div>
+</footer>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/rf.js"></script>
+</body>
+</html>
