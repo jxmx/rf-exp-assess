@@ -1,5 +1,5 @@
 //
-// oet65-calc.js - Implement the calculations of RF exposure based on FCC 
+// oet65.js - Implement the calculations of RF exposure based on FCC 
 // Note all references are based on OET65 Edition 97-01
 // found at https://transition.fcc.gov/Bureaus/Engineering_Technology/Documents/bulletins/oet65/oet65.pdf
 //
@@ -175,4 +175,13 @@ class OET65Calc{
         return this.getMinDistanceUncontrolled() * 3.28084;
     }
 
+
+    //
+    // Does the class hold enough data to compute a good value?
+    isReady(){
+        if(this.#freq && this.#gain && this.#power && this.#powermw){
+            return true;
+        }
+        return false;
+    }
 }
