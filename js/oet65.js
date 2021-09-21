@@ -1,0 +1,165 @@
+//
+// oet65-calc.js - Implement the calculations of RF exposure based on FCC 
+// Note all references are based on OET65 Edition 97-01
+// found at https://transition.fcc.gov/Bureaus/Engineering_Technology/Documents/bulletins/oet65/oet65.pdf
+//
+
+// This script depends on the certain functions that are not implemented in older
+// browsers, notably private class fields
+
+// Power Density table lookups from OET 65 Appendix A Table 1 for MPE
+// For a given frequency in MHz, return the power density in mW/cm^2
+function getPwrDensityControlled(f) {
+    if( f < 3 ){
+        return 100
+    } else if(f < 30){
+        return 900 / Math.pow(f,2);
+    } else if(f < 300){
+        return 1;
+    } else if(f < 1500){
+        return f / 300;
+    } else if(f < 100000){
+        return 5;
+    } else {
+        console.log("Frequency provided out of range");
+        return false;
+    }
+}
+
+function getPwrDensityUncontrolled(f) {
+    if( f < 3 ){
+        return 100
+    } else if(f < 30){
+        return 180 / Math.pow(f,2);
+    } else if(f < 300){
+        return 0.2;
+    } else if(f < 1500){
+        return f / 1500;
+    } else if(f < 100000){
+        return 1;
+    } else {
+        console.log("Frequency provided out of range");
+        return false;
+    }
+}
+
+// Calcuate a timeaveragepercent
+function timeAvgPercent(tx, rx, interval) {
+    var cycle = tx + rx;
+    var remainder = interval % cycle;;
+    var txcompletecycles = Math.floor( interval / cycle) * tx;; // tx minutes for complete cycles
+
+    if (tx >= interval) {
+        return 1.0; // edge case tx minutes is larger than interval minutes -- so indicate that tx was on for full interval
+    } else if (cycle >= interval) {
+        return (tx / interval); // edge case where 1 tx+rx cycle is larger than interval
+    } else if (tx > remainder) {
+        return ((txcompletecycles + remainder) / interval);
+    } else {
+        return ((txcompletecycles + tx) / interval);
+    }
+};
+
+//
+// Object to store a single calculation
+
+class OET65Calc{
+
+    // storage variables are all private
+    #freq = null;           // frequency in MHz
+    #power = null;          // power in W
+    #powermw = null;        // power in mW
+    #gain = null;           // gain in log value
+    #groundeffect = false;  // calcluate using the ground effect
+    #mod = 0.25;            // see the explanation in getMinDistanceControlled()
+
+    constructor(){}
+
+    // get and set freq
+    setFreq(f){
+        this.#freq = f;
+    }
+
+    getFreq(){
+        return this.#freq;
+    }
+
+    // get and set power
+    setPower(p){
+        this.#power = p;
+        this.#powermw = p * 1000;
+    }
+
+    getPower(){
+        return this.#power;
+    }
+
+    getPowerMW(){
+        return this.#powermw;
+    }
+
+    // get and set gain
+    setGainByDBI(dbi){
+        this.#gain = 10 ^ ( dbi / 1);
+    }
+    setGainByDBD(dbd){
+        this.#gain = 10 ^ ( dbd / 10) + 2.14;
+    }
+    getGainVal(){
+        return this.#gain;
+    }
+    getGainDBI(){
+        return Math.log10(this.#gain);
+    }
+
+    // turn ground effect on and off - this is more fun than sets
+    groundEffectOn(){
+        this.#groundeffect = true;
+        this.#mod = 0.64;
+    }
+
+    groundEffectOff(){
+        this.#groundeffect = false;
+        this.#mod = 0.25;
+    }
+
+    getGroundEffect(){
+        return this.#groundeffect;
+    }
+
+    // Calculation Functions
+
+    // Return the minimum distance for controlled exposure in meters
+    //
+    // For the normal case, changing OET65 Function 4 to solve for R rather than S
+    //      R = Sqrt(  ( Pwr * Gain ) / ( 4 * Pi * S  ) )
+    //
+    // For the ground effect case, use OET65 Function 6 to solve for R with the EPA value of 1.6
+    //      R = Sqrt(  ( 1.6^2 * Pwr * Gain ) / ( Pi * S )
+    //
+    // Programagically these can collapse into a single Power * Gain modifier value
+    //      R = Sqrt(  ( Mod * Pwr * Gain) / ( Pi & S) )
+    // where Mod is 0.25 in the non-ground-effect state (the 1/4 above) or 0.64 (1.6^2 / 4 above)
+    //
+    getMinDistanceControlled(){
+        var S = getPwrDensityControlled(this.#freq);
+        var distCM = Math.sqrt( ( this.#mod * this.#powermw * this.#gain ) / ( Math.PI * S ) );
+        return distCM / 100; // (cm -> m);
+    }
+
+    getMinDistanceUncontrolled(){
+
+        var S = getPwrDensityUncontrolled(this.#freq);
+        var distCM = Math.sqrt( ( this.#mod * this.#powermw * this.#gain ) / ( Math.PI * S ) );
+        return distCM / 100; // (cm -> m);
+    }
+
+    getMinDistanceControlledFeet(){
+        return this.getMinDistanceControlled() * 3.28084;
+    }
+
+    getMinDistanceUncontrolledFeet(){
+        return this.getMinDistanceUncontrolled() * 3.28084;
+    }
+
+}
