@@ -7,6 +7,8 @@
 // This script depends on the certain functions that are not implemented in older
 // browsers, notably private class fields
 
+// Some general support functions
+
 // Power Density table lookups from OET 65 Appendix A Table 1 for MPE
 // For a given frequency in MHz, return the power density in mW/cm^2
 function getPwrDensityControlled(f) {
@@ -43,7 +45,7 @@ function getPwrDensityUncontrolled(f) {
     }
 }
 
-// Calcuate a timeaveragepercent
+// Calcuate a timeaveragepercent for modifying power
 function timeAvgPercent(tx, rx, interval) {
     var cycle = tx + rx;
     var remainder = interval % cycle;;
@@ -73,31 +75,38 @@ class OET65Calc{
     #groundeffect = false;  // calcluate using the ground effect
     #mod = 0.25;            // see the explanation in getMinDistanceControlled()
 
+    // default constructor
     constructor(){}
+
+    // one-shot constructor
+    constructor(mhz, watts, gaindbi, groundeffectbool){
+        this.setFreq(mhz);
+        this.setPower(watts);
+        this.setGainByDBI(gaindbi);
+        
+        if(groundeffectbool){
+            this.groundEffectOn();
+        }
+    }
 
     // get and set freq
     setFreq(f){
         this.#freq = f;
     }
-
     getFreq(){
         return this.#freq;
     }
-
     // get and set power
     setPower(p){
         this.#power = p;
         this.#powermw = p * 1000;
     }
-
     getPower(){
         return this.#power;
     }
-
     getPowerMW(){
         return this.#powermw;
     }
-
     // get and set gain
     setGainByDBI(dbi){
         this.#gain = 10 ^ ( dbi / 1);
@@ -117,12 +126,10 @@ class OET65Calc{
         this.#groundeffect = true;
         this.#mod = 0.64;
     }
-
     groundEffectOff(){
         this.#groundeffect = false;
         this.#mod = 0.25;
     }
-
     getGroundEffect(){
         return this.#groundeffect;
     }
@@ -135,7 +142,7 @@ class OET65Calc{
     //      R = Sqrt(  ( Pwr * Gain ) / ( 4 * Pi * S  ) )
     //
     // For the ground effect case, use OET65 Function 6 to solve for R with the EPA value of 1.6
-    //      R = Sqrt(  ( 1.6^2 * Pwr * Gain ) / ( Pi * S )
+    //      R = Sqrt(  ( 1.6^2 * Pwr * Gain ) / ( 4 * Pi * S ) )
     //
     // Programagically these can collapse into a single Power * Gain modifier value
     //      R = Sqrt(  ( Mod * Pwr * Gain) / ( Pi & S) )
@@ -143,6 +150,10 @@ class OET65Calc{
     //
     getMinDistanceControlled(){
         var S = getPwrDensityControlled(this.#freq);
+        if(S == false){
+            console.log("frequency out of range");
+            throw("frequency out of range");
+        }
         var distCM = Math.sqrt( ( this.#mod * this.#powermw * this.#gain ) / ( Math.PI * S ) );
         return distCM / 100; // (cm -> m);
     }
@@ -150,6 +161,10 @@ class OET65Calc{
     getMinDistanceUncontrolled(){
 
         var S = getPwrDensityUncontrolled(this.#freq);
+        if(S == false){
+            console.log("frequency out of range");
+            throw("frequency out of range");
+        }
         var distCM = Math.sqrt( ( this.#mod * this.#powermw * this.#gain ) / ( Math.PI * S ) );
         return distCM / 100; // (cm -> m);
     }
