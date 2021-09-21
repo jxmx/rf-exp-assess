@@ -23,7 +23,7 @@ function getPwrDensityControlled(f) {
     } else if(f < 100000){
         return 5;
     } else {
-        console.log("Frequency provided out of range");
+        console.log("getPwrDensityControlled(f): Frequency provided out of range");
         return false;
     }
 }
@@ -40,7 +40,7 @@ function getPwrDensityUncontrolled(f) {
     } else if(f < 100000){
         return 1;
     } else {
-        console.log("Frequency provided out of range");
+        console.log("getPwrDensityUncontrolled(f): Frequency provided out of range");
         return false;
     }
 }
@@ -49,7 +49,7 @@ function getPwrDensityUncontrolled(f) {
 function timeAvgPercent(tx, rx, interval) {
     var cycle = tx + rx;
     var remainder = interval % cycle;;
-    var txcompletecycles = Math.floor( interval / cycle) * tx;; // tx minutes for complete cycles
+    var txcompletecycles = Math.floor( interval / cycle) * tx; // tx minutes for complete cycles
 
     if (tx >= interval) {
         return 1.0; // edge case tx minutes is larger than interval minutes -- so indicate that tx was on for full interval
@@ -151,7 +151,6 @@ class OET65Calc{
     getMinDistanceControlled(){
         var S = getPwrDensityControlled(this.#freq);
         if(S == false){
-            console.log("frequency out of range");
             throw("frequency out of range");
         }
         var distCM = Math.sqrt( ( this.#mod * this.#powermw * this.#gain ) / ( Math.PI * S ) );
@@ -162,7 +161,6 @@ class OET65Calc{
 
         var S = getPwrDensityUncontrolled(this.#freq);
         if(S == false){
-            console.log("frequency out of range");
             throw("frequency out of range");
         }
         var distCM = Math.sqrt( ( this.#mod * this.#powermw * this.#gain ) / ( Math.PI * S ) );
