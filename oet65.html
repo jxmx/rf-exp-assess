@@ -20,10 +20,10 @@
 					of the assessment, go <a href="#">here</a>.
 			</div>
 			<div class="row">
-					<form id="calculator" name="calculator" class="form-l">
 						<div class="container-md">
 							<div class="row">
 								<div class="col-6">
+									<form id="calculator" name="calculator" class="form-l">
 									<table class="table">
 										<tr class="table-primary">
 											<td colspan="2"><b>Station Setup Information</b></td>
@@ -33,8 +33,8 @@
 											<td><input type="text" class="form-control" id="radioname" name="radioname" required></td>
 										</tr>
 										<tr>
-											<td><label for="power">Power Output in Watts</label><br>
-												<span class="d-print-none"><i>Use only whole integers with no other label - e.g. 100</i></span>
+											<td><label for="power">Power Output at Antenna in Watts</label><br>
+												<span class="d-print-none"><i>The power out of the radio less feedline losses before antenna gain</i></span>
 											</td>
 											<td><input type="text" class="form-control" id="power" name="power" required></td>
 										</tr>
@@ -44,7 +44,7 @@
 										</tr>
 										<tr>
 											<td><label for="antennagain">Antenna Gain</label><br>
-												<span class="d-print-none"><i>Number only; maximum of one decimal place (e.g. 2.1) - Do not include "dB"</i>
+												<span class="d-print-none"><i>Express gain as gain over an <b>isotropic (dBI)</b> antenna. For information published as gain over a dipole (dBD) add 2.14 for this value.</b></i>
 											</td>
 											<td>
 											<input type="text" class="form-control" id="antennagain" name="antennagain" required>
@@ -110,8 +110,10 @@
 											</td>
 										</tr>
 									</table>
+									</form>
 								</div>
-								<div class="col-6 px-5 report-out">
+								<div class="col-6">
+									<form id="reportout" name="reportout">
 									<table class="table">
 										<tr class="table-primary">
 											<td colspan="3"><b>Raw Station Data</b></td>
@@ -183,10 +185,10 @@
 											<td>W</td>
 										</tr>									
 									</table>
+									</form>
 								</div>
 							</div>
 						</div>
-					</form>
 				</div>                
 			</div>
 		</div>

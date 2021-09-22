@@ -18,7 +18,7 @@ $('#radioname').on('input', function() {
 
 $('#frequency').on('input', function() {
 	var input=$(this);
-    if(input.val() > 0 && input.val() < 100000){
+    if(input.val() >= 0.3 && input.val() < 100000){
 		proceedOK = true;
 		input.removeClass("is-invalid").addClass("is-valid");
 	} else {
@@ -134,6 +134,7 @@ $('#dutycycle').on('input', function() {
 
 // Oneshot calculator
 function runOETCalc(){
+
     O = new OET65Calc();
     O.setFreq(parseFloat(document.getElementById("frequency").value));
     O.setGainByDBI(parseFloat(document.getElementById("antennagain").value));
@@ -157,7 +158,12 @@ function runOETCalc(){
         6   // see OET-65 Appendix A Table 1 averaging time
         );
 
-    O.setPower(pwrInAnt * dutyCycle * timeavgmod);  
+    O.setPower(pwrInAnt * dutyCycle * timeavgmod);
+
+	if( ! (O.isReady() && proceedOK )){
+		document.getElementById("reportout").reset();
+		alert("Not all data is entered/valid");
+	}
     document.getElementById("cmapd").value = getPwrDensityControlled(document.getElementById("frequency").value);
     document.getElementById("cmsdm").value = O.getMinDistanceControlled().toFixed(2);
     document.getElementById("cmsdf").value = O.getMinDistanceControlledFeet().toFixed(2);
@@ -175,5 +181,9 @@ function runOETCalc(){
     document.getElementById("umsdm").value = O.getMinDistanceUncontrolled().toFixed(2);
     document.getElementById("umsdf").value = O.getMinDistanceUncontrolledFeet().toFixed(2);
     document.getElementById("usteirpavg").value = O.getPower().toFixed(1);
+
+	// jump back to the top of the document
+	document.body.scrollTop = 0; // For Safari
+	document.documentElement.scrollTop = 0; // For Chrome, Firefox, Opera
     
 }

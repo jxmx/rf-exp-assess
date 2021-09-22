@@ -12,7 +12,10 @@
 // Power Density table lookups from OET 65 Appendix A Table 1 for MPE
 // For a given frequency in MHz, return the power density in mW/cm^2
 function getPwrDensityControlled(f) {
-    if( f < 3 ){
+    if( f < 0.3){
+        console.log("getPwrDensityControlled(f): Frequency provided out of range");
+        return false;        
+    } else if(f < 3 ){
         return 100
     } else if(f < 30){
         return 900 / Math.pow(f,2);
@@ -29,7 +32,10 @@ function getPwrDensityControlled(f) {
 }
 
 function getPwrDensityUncontrolled(f) {
-    if( f < 3 ){
+    if( f < 0.3 ){
+        console.log("getPwrDensityUncontrolled(f): Frequency provided out of range");
+        return false;       
+    } else if(f < 3){
         return 100
     } else if(f < 30){
         return 180 / Math.pow(f,2);
