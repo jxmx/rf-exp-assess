@@ -79,27 +79,27 @@ class OET65Calc{
     constructor(){}
 
     // one-shot constructor
-    constructor(mhz, watts, gaindbi, groundeffectbool){
-        this.setFreq(mhz);
-        this.setPower(watts);
-        this.setGainByDBI(gaindbi);
-        
-        if(groundeffectbool){
-            this.groundEffectOn();
-        }
-    }
+    //constructor(mhz, watts, gaindbi, groundeffectbool){
+    //    this.setFreq(mhz);
+    //    this.setPower(watts);
+    //    this.setGainByDBI(gaindbi);
+    //    
+    //    if(groundeffectbool){
+   //         this.groundEffectOn();
+   //     }
+   // }
 
     // get and set freq
     setFreq(f){
-        this.#freq = f;
+        this.#freq = parseFloat(f);
     }
     getFreq(){
         return this.#freq;
     }
     // get and set power
     setPower(p){
-        this.#power = p;
-        this.#powermw = p * 1000;
+        this.#power = parseFloat(p);
+        this.#powermw = parseFloat(p) * 1000;
     }
     getPower(){
         return this.#power;
@@ -109,10 +109,10 @@ class OET65Calc{
     }
     // get and set gain
     setGainByDBI(dbi){
-        this.#gain = 10 ^ ( dbi / 1);
+        this.#gain = Math.pow(10, (parseFloat(dbi)/10));
     }
     setGainByDBD(dbd){
-        this.#gain = 10 ^ ( dbd / 10) + 2.14;
+        this.#gain = Math.pow(10, ( parseFloat(dbd) / 10)) + 2.14;
     }
     getGainVal(){
         return this.#gain;
@@ -153,7 +153,13 @@ class OET65Calc{
         if(S == false){
             throw("frequency out of range");
         }
+       //THIS IS WRONG;
+        
+        console.log("mW: " + this.#powermw);
+        console.log("gain: " + this.#gain);
+        console.log("mod: " + this.#mod);
         var distCM = Math.sqrt( ( this.#mod * this.#powermw * this.#gain ) / ( Math.PI * S ) );
+        console.log("distCM: " + distCM);
         return distCM / 100; // (cm -> m);
     }
 

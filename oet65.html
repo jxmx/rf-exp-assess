@@ -8,6 +8,188 @@
 	<link rel="shortcut icon" href="img/firefly.svg" sizes="any" type="image/svg+xml">
 </head>
 <body>
+	<main>
+		<div class="container-fluid p-5">
+			<div class="row bg-light">
+				<h1>RF Exposure Assessment Calculator</h1>
+			</div>  
+			<div class="row mt-3 d-print-none">               
+				<p>This is the quick calculator for completing an OET-65 RF exposure 
+					assessment and intended for users who already understand the various
+					attributes required for evaluation. For a step-by-step walk-through 
+					of the assessment, go <a href="#">here</a>.
+			</div>
+			<div class="row">
+					<form id="calculator" name="calculator" class="form-l">
+						<div class="container-md">
+							<div class="row">
+								<div class="col-6">
+									<div class="mb-3">
+										<label for="radioname">Radio Make/Model</label>
+										<input type="text" class="form-control" id="radioname" name="radioname" required>
+									</div>
+									<div class="mb-3">
+										<label for="power">Power Output in Watts</label>
+										<span class="d-print-none">
+											<br><i>Use only whole integers with no other label - e.g. 100</i>
+										</span>
+										<input type="text" class="form-control" id="power" name="power" required>
+									</div>
+									<div class="mb-3">
+										<label for="antennatype">Antenna Type</label>
+										<input type="text" class="form-control" id="antennatype" name="antennatype" required>
+									</div>
+									<div class="mb-3">
+										<label for="antennagain">Antenna Gain</label>
+										<span class="d-print-none">
+											<br><i>Number only; maximum of one decimal place (e.g. 2.1) - Do not include "dB"</i>
+										</span>
+										<input type="text" class="form-control" id="antennagain" name="antennagain" required>
+									</div>
+									<div class="mb-3">
+										<label for="dutycycle">Duty Cycle</label>
+										<select class="form-select" aria-label="select duty cycle" id="dutycycle" name="dutycycle">
+											<option value="0.20" selected="selected">Conversational SSB, no speech processing (mode duty cycle=20%)</option>
+											<option value="0.50">Conversational SSB, heavy speech processing (duty cycle=50%)</option>
+											<option value="0.40">Conversational CW (duty cycle=40%)</option>
+											<option value="1.00">FM (duty cycle=100%)</option>
+											<option value="1.00">AM (duty cycle=100%)</option>
+											<option value="1.00">FSK/RTTY (duty cycle=100%)</option>
+											<option value="1.00">AFSK SSB (duty cycle=100%)</option>
+											<option value="1.00">FT/JT/JS Digital Modes (duty cycle=100%)</option>
+											<option value="1.00">Carrier Always On, i.e., for Tuning Up (duty cycle=100%)</option>
+											<option value="1.00">For all others, or if unknown, assume worst case scenario (duty cycle=100%)</option>
+										</select>
+									</div>
+									<div class="mb-3">
+										<label for="txtime">Transmit Time</label>
+										<span class="d-print-none">
+											<br><i>Number only between 1 and 30</i>
+										</span>
+										<input type="text" class="form-control" id="txtime" name="txtime" required>
+									</div>
+									<div class="mb-3">
+										<label for="rxtime">Receive Time after Transmit (and then repeat)</label>
+										<span class="d-print-none">
+											<br><i>Number only between 1 and 30</i>
+										</span>
+										<input type="text" class="form-control" id="rxtime" name="rxtime"  required>
+									</div>
+									<div class="mb-3">
+										<label for="frequency">Frequency</label>
+										<span class="d-print-none">
+											<br><i>Enter the frequency in MHz in the format NNN.NNN.</i>
+										</span>
+										<input type="text" class="form-control" id="frequency" name="frequency" required>
+									</div>
+									<div class="mb-3">
+										<button type="button" class="btn btn-primary" onclick="runOETCalc()" aria-label="Back">Calculate</button>
+									</div>
+								</div>
+								<div class="col-6 px-5 report-out">
+									<div class="mb-3 row bg-danger">
+										<p class="text-center text-white"><b>Station Power</b></p>
+									</div>
+									<div class="mb-3 row">
+										<label class="col-sm-8 col-form-label" for="steirp">Station EIRP Raw</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control-plaintext" id="steirp" name="steirp" readonly>
+										</div>
+									</div>
+									<div class="mb-3 row bg-danger">
+										<p class="text-center text-white"><b>Uncontrolled Exposure Information</b></p>
+									</div>
+									<div class="mb-3 row">
+										<label class="col-sm-8 col-form-label" for="umapd">Maximum Allowed Power Density
+											<math xmlns = "http://www.w3.org/1998/Math/MathML">
+												<mfrac><mn>mW</mn><msup><mi>cm</mi><mn>2</mn></msup></mfrac>
+											</math>
+										</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control-plaintext" id="umapd" name="umapd" readonly>
+										</div>
+									</div>
+									<div class="mb-3 row">
+										<label class="col-sm-8 col-form-label" for="umsd">Maximum Safe Distance (ft)</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control-plaintext" id="umsdf" name="umsdf" readonly>
+										</div>
+									</div>
+									<div class="mb-3 row">
+										<label class="col-sm-8 col-form-label" for="umsdm">Maximum Safe Distance (m)</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control-plaintext" id="umsdm" name="umsdm" radonly>
+										</div>
+									</div>
+									<div class="mb-3 row">
+										<label class="col-sm-8 col-form-label" for="usteirpavg">Station EIRP w/ Dutycycle and Time Avg (W)</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control-plaintext" id="usteirpavg" name="usteirpavg" readonly>
+										</div>
+									</div>
+		
+									<div class="mb-3 row bg-success mt-5">
+										<p class="text-center text-white"><b>Controlled Exposure Information</b></p>
+									</div>
+		
+									<div class="mb-3 row">
+										<label class="col-sm-8 col-form-label" for="cmapd">Maximum Allowed Power Density
+											<math xmlns = "http://www.w3.org/1998/Math/MathML">
+												<mfrac><mn>mW</mn><msup><mi>cm</mi><mn>2</mn></msup></mfrac>
+											</math>
+										</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control-plaintext" id="cmapd" name="cmapd" readonly>
+										</div>
+									</div>
+					
+									<div class="mb-3 row">
+										<label class="col-sm-8 col-form-label" for="cmsdf">Maximum Safe Distance (ft)</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control-plaintext" id="cmsdf" name="cmsdf" readonly>
+										</div>
+									</div>
+									<div class="mb-3 row">
+										<label class="col-sm-8 col-form-label" for="cmsdm">Maximum Safe Distance (m)</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control-plaintext" id="cmsdm" name="cmsdm" readonly>
+										</div>
+									</div>
+									<div class="mb-3 row">
+										<label class="col-sm-8 col-form-label" for="csteirpavg">Station EIRP w/ Dutycycle and Time Avg (W)</label>
+										<div class="col-sm-4">
+											<input type="text" class="form-control-plaintext" id="csteirpavg" name="csteirpavg" readonly>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>                
+			</div>
+		</div>
+	</main>
+	<footer>
+			<div class="container-fluid p-5">
+			<div class="row">               
+				<div class="main-content alert alert-danger">
+					<p><b>Important Disclaimer</b></p>
+					<p>This site is one interpretation of the requirements of an amateur radio operator's obglications
+						and method for ensuring compliance with the United States Federal Communication Comission's 
+						requirements for RF exposure safety and analysis as required in OET Bulletin 65 and other 
+						rules and regulations. This site is only guidance and may be incorrect or out-of-date with
+						current rules and interpretations of such rules. Use of this site is solely at your own risk
+						and the author(s) and operator(s) disclaim all liability resulting in any penalty or injury based
+						on information from this site. This site must never be used to ensure public safety or for commercial
+						purposes.
+					</p>
+				</div>   
+			</div>
+		</div>
+	</footer>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery-3.6.0.min.js"></script>
     <script src="js/oet65.js"></script>
+	<script src="js/rfecalc.js"></script>
 </body>
 </html>
