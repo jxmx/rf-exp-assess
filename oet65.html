@@ -5,7 +5,7 @@
 	<title>Ham Radio RF Exposure Calculator</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/local.css" rel="stylesheet">
-	<link rel="shortcut icon" href="img/firefly.svg" sizes="any" type="image/svg+xml">
+	<link rel="shortcut icon" href="img/rfe.png" sizes="any">
 </head>
 <body>
 	<main>
@@ -24,143 +24,165 @@
 						<div class="container-md">
 							<div class="row">
 								<div class="col-6">
-									<div class="mb-3">
-										<label for="radioname">Radio Make/Model</label>
-										<input type="text" class="form-control" id="radioname" name="radioname" required>
-									</div>
-									<div class="mb-3">
-										<label for="power">Power Output in Watts</label>
-										<span class="d-print-none">
-											<br><i>Use only whole integers with no other label - e.g. 100</i>
-										</span>
-										<input type="text" class="form-control" id="power" name="power" required>
-									</div>
-									<div class="mb-3">
-										<label for="antennatype">Antenna Type</label>
-										<input type="text" class="form-control" id="antennatype" name="antennatype" required>
-									</div>
-									<div class="mb-3">
-										<label for="antennagain">Antenna Gain</label>
-										<span class="d-print-none">
-											<br><i>Number only; maximum of one decimal place (e.g. 2.1) - Do not include "dB"</i>
-										</span>
-										<input type="text" class="form-control" id="antennagain" name="antennagain" required>
-									</div>
-									<div class="mb-3">
-										<label for="dutycycle">Duty Cycle</label>
-										<select class="form-select" aria-label="select duty cycle" id="dutycycle" name="dutycycle">
-											<option value="0.20" selected="selected">Conversational SSB, no speech processing (mode duty cycle=20%)</option>
-											<option value="0.50">Conversational SSB, heavy speech processing (duty cycle=50%)</option>
-											<option value="0.40">Conversational CW (duty cycle=40%)</option>
-											<option value="1.00">FM (duty cycle=100%)</option>
-											<option value="1.00">AM (duty cycle=100%)</option>
-											<option value="1.00">FSK/RTTY (duty cycle=100%)</option>
-											<option value="1.00">AFSK SSB (duty cycle=100%)</option>
-											<option value="1.00">FT/JT/JS Digital Modes (duty cycle=100%)</option>
-											<option value="1.00">Carrier Always On, i.e., for Tuning Up (duty cycle=100%)</option>
-											<option value="1.00">For all others, or if unknown, assume worst case scenario (duty cycle=100%)</option>
-										</select>
-									</div>
-									<div class="mb-3">
-										<label for="txtime">Transmit Time</label>
-										<span class="d-print-none">
-											<br><i>Number only between 1 and 30</i>
-										</span>
-										<input type="text" class="form-control" id="txtime" name="txtime" required>
-									</div>
-									<div class="mb-3">
-										<label for="rxtime">Receive Time after Transmit (and then repeat)</label>
-										<span class="d-print-none">
-											<br><i>Number only between 1 and 30</i>
-										</span>
-										<input type="text" class="form-control" id="rxtime" name="rxtime"  required>
-									</div>
-									<div class="mb-3">
-										<label for="frequency">Frequency</label>
-										<span class="d-print-none">
-											<br><i>Enter the frequency in MHz in the format NNN.NNN.</i>
-										</span>
-										<input type="text" class="form-control" id="frequency" name="frequency" required>
-									</div>
-									<div class="mb-3">
-										<button type="button" class="btn btn-primary" onclick="runOETCalc()" aria-label="Back">Calculate</button>
-									</div>
+									<table class="table">
+										<tr class="table-primary">
+											<td colspan="2"><b>Station Setup Information</b></td>
+										</tr>
+										<tr>
+											<td><label for="radioname">Radio Make/Model</label>
+											<td><input type="text" class="form-control" id="radioname" name="radioname" required></td>
+										</tr>
+										<tr>
+											<td><label for="power">Power Output in Watts</label><br>
+												<span class="d-print-none"><i>Use only whole integers with no other label - e.g. 100</i></span>
+											</td>
+											<td><input type="text" class="form-control" id="power" name="power" required></td>
+										</tr>
+										<tr>
+											<td><label for="antennatype">Antenna Type</label></td>
+											<td><input type="text" class="form-control" id="antennatype" name="antennatype" required></td>
+										</tr>
+										<tr>
+											<td><label for="antennagain">Antenna Gain</label><br>
+												<span class="d-print-none"><i>Number only; maximum of one decimal place (e.g. 2.1) - Do not include "dB"</i>
+											</td>
+											<td>
+											<input type="text" class="form-control" id="antennagain" name="antennagain" required>
+											</td>
+										</tr>
+										<tr>
+											<td><label for="dutycycle">Duty Cycle</label></td>
+											<td>
+												<select class="form-select" aria-label="select duty cycle" id="dutycycle" name="dutycycle">
+													<option value="0.20" selected="selected">Conversational SSB, no speech processing (mode duty cycle=20%)</option>
+													<option value="0.50">Conversational SSB, heavy speech processing (duty cycle=50%)</option>
+													<option value="0.40">Conversational CW (duty cycle=40%)</option>
+													<option value="1.00">FM (duty cycle=100%)</option>
+													<option value="1.00">AM (duty cycle=100%)</option>
+													<option value="1.00">FSK/RTTY (duty cycle=100%)</option>
+													<option value="1.00">AFSK SSB (duty cycle=100%)</option>
+													<option value="1.00">FT/JT/JS Digital Modes (duty cycle=100%)</option>
+													<option value="1.00">Carrier Always On, i.e., for Tuning Up (duty cycle=100%)</option>
+													<option value="1.00">For all others, or if unknown, assume worst case scenario (duty cycle=100%)</option>
+												</select>
+											</td>
+										</tr>
+										<tr>
+											<td><label for="txtime">Transmit Time</label>
+											<span class="d-print-none"><br><i>Number only between 1 and 30</i></span>
+											</td>
+											<td>
+												<input type="text" class="form-control" id="txtime" name="txtime" required>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<label for="rxtime">Receive Time after Transmit (and then repeat)</label>
+												<span class="d-print-none">
+													<br><i>Number only between 1 and 30</i>
+												</span>
+											</td>
+											<td>
+												<input type="text" class="form-control" id="rxtime" name="rxtime"  required>
+											</td>
+										</tr>
+										<tr>
+											<td><label for="frequency">Frequency</label>
+												<span class="d-print-none">
+													<br><i>Enter the frequency in MHz in the format NNN.NNN.</i>
+												</span>
+											</td>
+											<td>
+												<input type="text" class="form-control" id="frequency" name="frequency" required>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<label class="form-check-label" for="groundeffect">Include Ground-Effect Reflections in Calculations</label>
+											</td>
+											<td>
+												<input class="form-check-input" type="checkbox" value="" id="groundeffect">
+											</td>
+										</tr>
+										<tr>
+											<td colspan="2">
+												<button type="button" class="btn btn-primary" onclick="runOETCalc()" aria-label="Back">Calculate</button>
+											</td>
+										</tr>
+									</table>
 								</div>
 								<div class="col-6 px-5 report-out">
-									<div class="mb-3 row bg-danger">
-										<p class="text-center text-white"><b>Station Power</b></p>
-									</div>
-									<div class="mb-3 row">
-										<label class="col-sm-8 col-form-label" for="steirp">Station EIRP Raw</label>
-										<div class="col-sm-4">
-											<input type="text" class="form-control-plaintext" id="steirp" name="steirp" readonly>
-										</div>
-									</div>
-									<div class="mb-3 row bg-danger">
-										<p class="text-center text-white"><b>Uncontrolled Exposure Information</b></p>
-									</div>
-									<div class="mb-3 row">
-										<label class="col-sm-8 col-form-label" for="umapd">Maximum Allowed Power Density
-											<math xmlns = "http://www.w3.org/1998/Math/MathML">
-												<mfrac><mn>mW</mn><msup><mi>cm</mi><mn>2</mn></msup></mfrac>
-											</math>
-										</label>
-										<div class="col-sm-4">
-											<input type="text" class="form-control-plaintext" id="umapd" name="umapd" readonly>
-										</div>
-									</div>
-									<div class="mb-3 row">
-										<label class="col-sm-8 col-form-label" for="umsd">Maximum Safe Distance (ft)</label>
-										<div class="col-sm-4">
-											<input type="text" class="form-control-plaintext" id="umsdf" name="umsdf" readonly>
-										</div>
-									</div>
-									<div class="mb-3 row">
-										<label class="col-sm-8 col-form-label" for="umsdm">Maximum Safe Distance (m)</label>
-										<div class="col-sm-4">
-											<input type="text" class="form-control-plaintext" id="umsdm" name="umsdm" radonly>
-										</div>
-									</div>
-									<div class="mb-3 row">
-										<label class="col-sm-8 col-form-label" for="usteirpavg">Station EIRP w/ Dutycycle and Time Avg (W)</label>
-										<div class="col-sm-4">
-											<input type="text" class="form-control-plaintext" id="usteirpavg" name="usteirpavg" readonly>
-										</div>
-									</div>
-		
-									<div class="mb-3 row bg-success mt-5">
-										<p class="text-center text-white"><b>Controlled Exposure Information</b></p>
-									</div>
-		
-									<div class="mb-3 row">
-										<label class="col-sm-8 col-form-label" for="cmapd">Maximum Allowed Power Density
-											<math xmlns = "http://www.w3.org/1998/Math/MathML">
-												<mfrac><mn>mW</mn><msup><mi>cm</mi><mn>2</mn></msup></mfrac>
-											</math>
-										</label>
-										<div class="col-sm-4">
-											<input type="text" class="form-control-plaintext" id="cmapd" name="cmapd" readonly>
-										</div>
-									</div>
-					
-									<div class="mb-3 row">
-										<label class="col-sm-8 col-form-label" for="cmsdf">Maximum Safe Distance (ft)</label>
-										<div class="col-sm-4">
-											<input type="text" class="form-control-plaintext" id="cmsdf" name="cmsdf" readonly>
-										</div>
-									</div>
-									<div class="mb-3 row">
-										<label class="col-sm-8 col-form-label" for="cmsdm">Maximum Safe Distance (m)</label>
-										<div class="col-sm-4">
-											<input type="text" class="form-control-plaintext" id="cmsdm" name="cmsdm" readonly>
-										</div>
-									</div>
-									<div class="mb-3 row">
-										<label class="col-sm-8 col-form-label" for="csteirpavg">Station EIRP w/ Dutycycle and Time Avg (W)</label>
-										<div class="col-sm-4">
-											<input type="text" class="form-control-plaintext" id="csteirpavg" name="csteirpavg" readonly>
-										</div>
-									</div>
+									<table class="table">
+										<tr class="table-primary">
+											<td colspan="3"><b>Raw Station Data</b></td>
+										</tr>
+										<tr>
+											<td><label class="col-sm-8 col-form-label" for="seipru">Station EIRP (Unadjusted)</label></td>
+											<td><input type="text" class="form-control-plaintext" id="seipru" name="seipru" readonly></td>
+											<td>W</td>
+										</tr>
+
+										<!-- Uncontrolled Information -->
+										<tr class="table-danger">
+											<td colspan="3"><b>Uncontrolled Exposure Information</b></td>
+										</tr>
+										<tr>
+											<td width="70%">
+												<label class="col-sm-8 col-form-label" for="umapd">Maximum Allowed Power&nbsp;Density</label>
+											</td>
+											<td width="20%"><input type="text" class="form-control-plaintext" id="umapd" name="umapd" readonly></td>
+											<td width="10%">
+												<math xmlns = "http://www.w3.org/1998/Math/MathML">
+													<mfrac><mn>mW</mn><msup><mi>cm</mi><mn>2</mn></msup></mfrac>
+												</math>
+											</td>
+										</tr>
+										<tr>
+											<td><label class="col-sm-8 col-form-label" for="umsdf">Minimum Safe Distance</label></td>
+											<td><input type="text" class="form-control-plaintext" id="umsdf" name="umsdf" readonly></td>
+											<td>ft</td>
+										</tr>
+										<tr>
+											<td><label class="col-sm-8 col-form-label" for="umsdm">Minimum Safe Distance</label></td>
+											<td><input type="text" class="form-control-plaintext" id="umsdm" name="umsdm" readonly></td>
+											<td>m</td>
+										</tr>
+										<tr>
+											<td><label class="col-sm-8 col-form-label" for="usteirpavg">Duty/Time-Averaged EIRP</label></td>
+											<td><input type="text" class="form-control-plaintext" id="usteirpavg" name="usteirpavg" readonly></td>
+											<td>W</td>
+										</tr>
+										<!-- Controlled Information -->
+										<tr class="table-warning">
+											<td colspan="3"><b>Controlled Exposure Information</b></td>
+										</tr>
+										<tr>
+											<td>
+												<label class="col-sm-8 col-form-label" for="cmapd">Maximum Allowed Power&nbsp;Density</label>
+											</td>
+											<td><input type="text" class="form-control-plaintext" id="cmapd" name="cmapd" readonly></td>
+											<td>
+												<math xmlns = "http://www.w3.org/1998/Math/MathML">
+													<mfrac><mn>mW</mn><msup><mi>cm</mi><mn>2</mn></msup></mfrac>
+												</math>
+											</td>
+										</tr>
+										<tr>
+											<td><label class="col-sm-8 col-form-label" for="umsd">Minimum Safe Distance</label></td>
+											<td><input type="text" class="form-control-plaintext" id="cmsdf" name="cmsdf" readonly></td>
+											<td>ft</td>
+										</tr>
+										<tr>
+											<td><label class="col-sm-8 col-form-label" for="umsd">Minimum Safe Distance</label></td>
+											<td><input type="text" class="form-control-plaintext" id="cmsdm" name="cmsdm" readonly></td>
+											<td>ft</td>
+										</tr>	
+										<tr>
+											<td><label class="col-sm-8 col-form-label" for="csteirpavg">Duty/Time-Averaged EIRP</label></td>
+											<td><input type="text" class="form-control-plaintext" id="csteirpavg" name="csteirpavg" readonly></td>
+											<td>W</td>
+										</tr>									
+									</table>
 								</div>
 							</div>
 						</div>

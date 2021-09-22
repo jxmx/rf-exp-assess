@@ -144,6 +144,12 @@ function runOETCalc(){
 
     //document.getElementById("steirp").value = pwrInAnt * O.getGainVal();
 
+	// Consider ground reflection effects
+	var gre = document.getElementById("groundeffect");
+	if(gre.checked){
+		O.groundEffectOn();
+	}
+
     // controlled access calculation
     timeavgmod = timeAvgPercent(
         parseFloat(document.getElementById("txtime").value),
