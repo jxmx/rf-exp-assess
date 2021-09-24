@@ -5,13 +5,17 @@
 	<title>Ham Radio RF Exposure Calculator</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/local.css" rel="stylesheet">
-	<link rel="shortcut icon" href="img/rfe.png" sizes="any">
+    <link rel="shortcut icon" href="img/rfe.png" sizes="any">
 </head>
 <body>
+    <header>
+        <div class="container-fluid shadow-sm p-3 mb-5 bg-red rounded">
+            <h1>RF Exposure Assessment Tool</h1>   
+        </div>    
+    </header>
 <main>
-	<div class="container-fluid p-5">
-        <div class="row">
-            <h1>RF Exposure Assessment Tool</h1>              
+	<div class="container-fluid px-5">
+        <div class="row">             
             <div class="main-content alert alert-danger">
                 <p><b>Important Disclaimer</b></p>
                 <p>This site is one interpretation of the requirements of an amateur radio operator's obligations
@@ -30,22 +34,30 @@
             <p>Amateur Radio is basically a safe activity. In recent years, however, there has been considerable discussion and concern about the possible hazards of electromagnetic radiation, including both RF energy and power-frequency (50-60 Hz) electromagnetic fields.  To allay such concerns, the FCC set limits on the amount of RF energy people can be exposed to. Starting on May 3, 2021 all amateur radio stations need to be evaluated to see if they are in compliance with the rules.</p>
         </div>
         
-        <div class="row justify-content-around">
-            <div class="col-4 bg-light border border-primary">
-                I need a detailed walkthrough with aids and examples to perform my calculation.
-                To determine and document compliance of your amateur radio station(s),
-                this site will walk you through the following steps:</p>
+        <div class="row equal justify-content-around">
+            <div class="col-4 bg-light m-3 p-3 border rounded-3 border-primary">
+                <div>
+                    I need a detailed walkthrough with aids and examples to perform my calculation.
+                    To determine and document compliance of your amateur radio station(s),
+                    this site will walk you through the following steps:</p>
                 <ul>
                     <li>Radio Output Power</li>
                     <li>Power into the antenna</li>
                     <li>Antenna gain</li>
                     <li>Completion of the OET calculations to determine exposure</li>
                 </ul>
-                <a href="1.html"><button type="button" class="btn btn-primary">Next</button></a>
+                </div>
+                <div class="wizbut">
+                    <a href="1.html"><button type="button" class="btn btn-primary">Go</button></a>
+                </div>
             </div>
-            <div class="col-4">
-                <p>I know what I'm doing and want to perform a quick calculation.</p>
-                <a href="oet65.html"><button type="button" class="btn btn-primary">Next</button></a>
+            <div class="col-4 bg-light m-3 p-3 border rounded-3 border-primary">
+                <div>
+                    I know what I'm doing and want to perform a quick calculation.
+                </div>
+                <div class="wizbut">
+                    <a href="oet65.html"><button type="button" class="btn btn-primary">Go</button></a>
+                </div>
             </div>
         </div>
 	</div>
@@ -56,3 +68,4 @@
 
 </body>
 </html>
+z

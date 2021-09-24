@@ -6,3 +6,12 @@
 	text-align: right;	
 	font-weight: bold;
 }
+
+.wizbut {
+	text-align: center;
+}
+
+.bg-red {
+	background-color: #AA0310;
+	color: white;
+}

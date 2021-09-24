@@ -5,17 +5,18 @@
 	<title>Ham Radio RF Exposure Calculator</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/local.css" rel="stylesheet">
-	<link rel="shortcut icon" href="img/firefly.svg" sizes="any" type="image/svg+xml">
+    <link rel="shortcut icon" href="img/rfe.png" sizes="any">
 </head>
 <body>
+    <header>
+        <div class="container-fluid shadow-sm p-3 mb-5 bg-red rounded">
+            <h1>RF Exposure Assessment Tool</h1>   
+        </div>    
+    </header>
 <main>
-	<div class="container-fluid p-5">
-        <div class="row p-2 text-center bg-light">
-                <h1>RF Exposure Assessment</h1>
-                <p>Created On <span id="x-timestamp"></span></p>
-                <div class="progress p-0">
-                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
+	<div class="container-fluid px-5">
+        <div class="row p-2 text-center">
+                <p>Evaluated On <span id="x-timestamp"></span></p>
         </div>
         <div class="row">                             
             <form id="report" name="report">

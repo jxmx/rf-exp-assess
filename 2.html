@@ -5,13 +5,17 @@
 	<title>Ham Radio RF Exposure Calculator</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/local.css" rel="stylesheet">
-	<link rel="shortcut icon" href="img/firefly.svg" sizes="any" type="image/svg+xml">
+	<link rel="shortcut icon" href="img/rfe.png" sizes="any">
 </head>
 <body>
+    <header>
+        <div class="container-fluid shadow-sm p-3 mb-5 bg-red rounded">
+            <h1>RF Exposure Assessment Tool</h1>   
+        </div>    
+    </header>
 <main>
-	<div class="container-fluid p-5">
+	<div class="container-fluid px-5">
         <div class="row bg-light">
-            <h1>RF Exposure Assessment Tool</h1>
             <div class="progress p-0">
                 <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
@@ -22,10 +26,9 @@
                     between the radio and the antenna. For the purposes of this calculation, to err on the side of caution,
                     small losses from barrel connectors, etc. will be ignored.
                 </p>
-                <p>Measure or otherwise determine the lenght of the feedline. This should be the completele
-                    length of all feedline including any jumpers or drip loops. Record this number below in feet.
-                    As this tool is using customary US measurements, metric users can multiply the length of a 
-                    feedline in meters by 3.281 to convert to feet.
+                <p>Measure or otherwise determine the length of the feedline. This should be the completele
+                    length of all feedline exiting your radio/amp from the last page. Include any jumpers or drip loops. Record this number below in feet.
+                    Meters or feet can be used here interchangably so long as the dB loss is expressed in the same unit of length.
                 </p>
                 <p>Determine the type of feedline used between your radio and the antenna. The loss is, in general,
                     greater for thinner coax and less for thicker coax. If you know the manufacturer of the feedline
@@ -56,11 +59,11 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="feedlength">Feedline Length (ft)</label>
-                                    <br><i>Number only; maximum of one decimal place (e.g. 25.5) - Do not include "ft"</i>
+                                    <br><i>Number only; maximum of one decimal place (e.g. 25.5) - Do not include any unit of meature (e.g. ft, m)</i>
                                     <input type="text" class="form-control" id="feedlength" name="feedlength" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="feedloss">Power Loss per 100ft (dB)</label>
+                                    <label for="feedloss">Power Loss per 100 units of measure (dB)</label>
                                     <br><i>Number only; maximum of one decimal place (e.g. 2.1) - Do not include "dB"</i>
                                     <input type="text" class="form-control" id="feedloss" name="feedloss" required>
                                 </div>

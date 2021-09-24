@@ -8,9 +8,14 @@
 	<link rel="shortcut icon" href="img/firefly.svg" sizes="any" type="image/svg+xml">
 </head>
 <body>
-	<div class="container-fluid p-5">
+    <header>
+        <div class="container-fluid shadow-sm p-3 mb-5 bg-red rounded">
+            <h1>RF Exposure Assessment Tool</h1>   
+        </div>    
+    </header>
+<main>
+	<div class="container-fluid px-5">
         <div class="row bg-light">
-            <h1>RF Exposure Assessment Tool</h1>
             <div class="progress p-0">
                 <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
@@ -19,8 +24,8 @@
                 <h2>Step 3 - Determine Antenna Gain</h2>
                 <p>The next step is to discover and determine the gain of your antenna. Commercial
                     manufacturers will publish the gain in dBi (gain over a theoretical antenna)
-                    for each band they are designed to be operated on. Look up the antenna to be 
-                    assessed on the manufacturer's website.
+                    or dBd (gain over a dipole) for each band they are designed to be operated on. 
+                    Look up the antenna to be assessed on the manufacturer's website.
                 </p>
                 <p>If the information is unknown, or the antenna is a homebrew, use the table provided
                     by the ARRL and the RSGB to approximate the gain.

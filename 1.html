@@ -5,13 +5,17 @@
 	<title>Ham Radio RF Exposure Calculator</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/local.css" rel="stylesheet">
-	<link rel="shortcut icon" href="img/firefly.svg" sizes="any" type="image/svg+xml">
+	<link rel="shortcut icon" href="img/rfe.png" sizes="any">
 </head>
 <body>
+    <header>
+        <div class="container-fluid shadow-sm p-3 mb-5 bg-red rounded">
+            <h1>RF Exposure Assessment Tool</h1>   
+        </div>    
+    </header>
 <main>
-	<div class="container-fluid p-5">
+	<div class="container-fluid px-5">
         <div class="row bg-light">
-            <h1>RF Exposure Assessment Tool</h1>
             <div class="progress">
                 <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
@@ -34,6 +38,7 @@
                     For the best calculation, use the highest frequency within the band to be assessed. For example,
                     to assess a 2m radio, choose 148.0 MHz. For a 160m - 10m radio use 27.900 MHz.
                     Consult the <a target="_blank" href="http://www.arrl.org/files/file/Regulatory/Band%20Chart/Band%20Chart%20-%2011X17%20Color.pdf">ARRL US Amateur Radio Bands for the proper value.</a>
+                    At the end of the walk-through, you can return to this screen to assess multiple frequencies and powers from the same system.
                 </p>
         </div>
         <div class="row">
@@ -48,12 +53,12 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="frequency">Frequency</label>
-                                    <br><i>Enter the frequency in MHz in the format NNN.NNN.</i>
+                                    <br><i>Enter the frequency in MHz in the format NNN.NNN. Trailing zeros are not necessary.</i>
                                     <input type="text" class="form-control" id="frequency" name="frequency" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="power">Power Output in Watts</label>
-                                    <br><i>Use only whole integers with no other label - e.g. 100</i>
+                                    <br><i>Enter the power output, in watts, of your radio and/or amplifier before it enters any feeline to an antenna.</i>
                                     <input type="text" class="form-control" id="power" name="power" required>
                                 </div>
                                 <div class="mb-3">
