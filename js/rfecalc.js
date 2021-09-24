@@ -145,9 +145,15 @@ function runOETCalc(){
 
 	// Which form are we in? If it's the quick form, the power field is already adjusted
 	// if it's the walkthrough, it's not
-	if( document.getElementById("feedloss") === undefined ){
-		pwrInAnt = parseFloat(document.getElementById("power").value);
+	if( ! document.getElementById("feedloss") ){
+		pwrInAnt = document.getElementById("power").value;
 		console.log("pwrInAnt: precalc: " + pwrInAnt);
+		// Calculate and display the ERP
+		var G = parseFloat(document.getElementById("antennagain").value);
+		var P = parseFloat(W2dBW(pwrInAnt));
+		var E = parseFloat(dBW2W( P + G ));
+		document.getElementById("erp").value = E;
+		console.log("pwrInAnt: calc: " + E);
 	} else {
 		var P = W2dBW(parseFloat(document.getElementById("power").value));
 		var ALen = parseFloat(document.getElementById("feedlength").value);
@@ -157,7 +163,7 @@ function runOETCalc(){
 		console.log("pwrInAnt: calc: " + pwrInAnt);
 
 		// Calculate and display the ERP
-        var G = parseFloat(document.getElementById("antennagain").value);
+        var G = document.getElementById("antennagain").value;
         document.getElementById("erp").value = dBW2W(P - ALoss + G);
 	}
 
@@ -178,7 +184,7 @@ function runOETCalc(){
 
 	if( ! (O.isReady() && proceedOK )){
 		// only reset the quick form
-		if( ! document.getElementById("feedloss") === undefined ){
+		if( ! document.getElementById("feedloss") ){
 			document.getElementById("report").reset();
 		}
 		alert("Not all data is entered/valid");
