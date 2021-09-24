@@ -69,6 +69,11 @@
                                     <input type="text" class="form-control" id="rxtime" name="rxtime"  required>
                                 </div>
                                 <div class="mb-3">
+                                    <label class="form-check-label" for="groundeffect">Include Ground-Effect Reflections in Calculations</label>
+                                    <br><i>Check this box for a low antenna where significant reflections off the ground are expected</i>
+                                    <input class="form-check-input" type="checkbox" value="" id="groundeffect" name="groundeffect">
+                                </div>
+                                <div class="mb-3">
                                     <button type="button" class="btn btn-primary" onclick="backClick('3')" aria-label="Back">Back</button>
                                     <button type="button" class="btn btn-primary" onclick="nextClick('5')" aria-label="Next">Next</button>
                                 </div>
@@ -103,13 +108,13 @@
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label class="col-sm-6 col-form-label" for="feedlength">Feedline Length (ft)</label>
+                                        <label class="col-sm-6 col-form-label" for="feedlength">Feedline Length</label>
                                         <div class="col-sm-6">
                                             <input type="text" class="form-control-plaintext" id="feedlength" name="feedlength" readonly>
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
-                                        <label class="col-sm-6 col-form-label" for="feedloss">Power Loss per 100ft (dB)</label>
+                                        <label class="col-sm-6 col-form-label" for="feedloss">Power Loss per 100 units (dB)</label>
                                         <div class="col-sm-6">
                                             <input type="text" class="form-control-plaintext" id="feedloss" name="feedloss" readonly>
                                         </div>

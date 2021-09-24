@@ -139,11 +139,27 @@ function runOETCalc(){
     O.setFreq(parseFloat(document.getElementById("frequency").value));
     O.setGainByDBI(parseFloat(document.getElementById("antennagain").value));
 
-    var pwrInAnt = parseFloat(document.getElementById("power").value);
+    var pwrInAnt;
     var dutyCycle = parseFloat(document.getElementById("dutycycle").value);
     var timeavgmod;
 
-    //document.getElementById("steirp").value = pwrInAnt * O.getGainVal();
+	// Which form are we in? If it's the quick form, the power field is already adjusted
+	// if it's the walkthrough, it's not
+	if( document.getElementById("feedloss") === undefined ){
+		pwrInAnt = parseFloat(document.getElementById("power").value);
+		console.log("pwrInAnt: precalc: " + pwrInAnt);
+	} else {
+		var P = W2dBW(parseFloat(document.getElementById("power").value));
+		var ALen = parseFloat(document.getElementById("feedlength").value);
+		var ALossRate = parseFloat(document.getElementById("feedloss").value);
+		var ALoss = ALossRate * ( ALen / 100);
+		pwrInAnt = dBW2W( P - ALoss);
+		console.log("pwrInAnt: calc: " + pwrInAnt);
+
+		// Calculate and display the ERP
+        var G = parseFloat(document.getElementById("antennagain").value);
+        document.getElementById("erp").value = dBW2W(P - ALoss + G);
+	}
 
 	// Consider ground reflection effects
 	var gre = document.getElementById("groundeffect");
@@ -161,10 +177,13 @@ function runOETCalc(){
     O.setPower(pwrInAnt * dutyCycle * timeavgmod);
 
 	if( ! (O.isReady() && proceedOK )){
-		document.getElementById("reportout").reset();
+		// only reset the quick form
+		if( ! document.getElementById("feedloss") === undefined ){
+			document.getElementById("report").reset();
+		}
 		alert("Not all data is entered/valid");
 	}
-    document.getElementById("cmapd").value = getPwrDensityControlled(document.getElementById("frequency").value);
+    document.getElementById("cmapd").value = getPwrDensityControlled(document.getElementById("frequency").value).toFixed(2);
     document.getElementById("cmsdm").value = O.getMinDistanceControlled().toFixed(2);
     document.getElementById("cmsdf").value = O.getMinDistanceControlledFeet().toFixed(2);
     document.getElementById("csteirpavg").value = O.getPower().toFixed(1);
@@ -177,7 +196,7 @@ function runOETCalc(){
         );
     
     O.setPower(pwrInAnt * dutyCycle * timeavgmod);  
-    document.getElementById("umapd").value = getPwrDensityUncontrolled(document.getElementById("frequency").value);
+    document.getElementById("umapd").value = getPwrDensityUncontrolled(document.getElementById("frequency").value).toFixed(2);
     document.getElementById("umsdm").value = O.getMinDistanceUncontrolled().toFixed(2);
     document.getElementById("umsdf").value = O.getMinDistanceUncontrolledFeet().toFixed(2);
     document.getElementById("usteirpavg").value = O.getPower().toFixed(1);

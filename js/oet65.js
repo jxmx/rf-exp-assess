@@ -68,6 +68,15 @@ function timeAvgPercent(tx, rx, interval) {
     }
 };
 
+// dBW conversions
+function W2dBW(watts){
+    return (10 * Math.log10(watts)).toFixed(2);
+}
+
+function dBW2W(dBW){
+    return Math.pow(10, dBW / 10).toFixed(2);
+}
+
 //
 // Object to store a single calculation
 

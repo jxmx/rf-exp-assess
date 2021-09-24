@@ -9,13 +9,13 @@
 </head>
 <body>
     <header>
-        <div class="container-fluid shadow-sm p-3 mb-5 bg-red rounded">
+        <div class="container-fluid shadow-sm p-3 mb-1 bg-red rounded">
             <h1>RF Exposure Assessment Tool</h1>   
         </div>    
     </header>
 <main>
 	<div class="container-fluid px-5">
-        <div class="row p-2 text-center">
+        <div class="row px-2 text-center">
                 <p>Evaluated On <span id="x-timestamp"></span></p>
         </div>
         <div class="row">                             
@@ -51,13 +51,13 @@
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label class="col-sm-6 col-form-label" for="feedlength">Feedline Length (Ft)</label>
+                                <label class="col-sm-6 col-form-label" for="feedlength">Feedline Length</label>
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control-plaintext" id="feedlength" name="feedlength" readonly>
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label class="col-sm-6 col-form-label" for="feedloss">Power Loss per 100ft (dB)</label>
+                                <label class="col-sm-6 col-form-label" for="feedloss">Power Loss per 100 units (dB)</label>
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control-plaintext" id="feedloss" name="feedloss" readonly>
                                 </div>
@@ -93,20 +93,21 @@
                                 </div>
                             </div>
                             <div class="mb-3 row">
+                                <label class="col-sm-6 col-form-label" for="rxtime">Include Ground-Effect</label>
+                                <div class="col-sm-6">
+                                    <input class="form-check-input" type="checkbox" value="" id="groundeffect" name="groundeffect" readonly>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
                                 <label class="col-sm-6 col-form-label" for="erp">Theoreitcal ERP (W)</label>
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control-plaintext" id="erp" name="erp" readonly>
                                 </div>
                             </div>
-                            <div class="mb-3 row">
-                                <label class="col-sm-6 col-form-label" for="timeerp">Time-Averaged ERP (W)</label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control-plaintext" id="timeerp" name="timeerp" readonly>
-                                </div>
-                            </div>
                             <div class="mb-3">
-                                <button type="button" class="btn btn-primary" onclick="backClick('4')" aria-label="Back">Back</button>
-                                <button type="button" class="btn btn-primary" onclick="restartClick('1')" aria-label="Next">New Assessment</button>
+                                <button type="button" class="btn btn-primary d-print-none" onclick="backClick('4')" aria-label="Back">Back</button>
+                                <button type="button" class="btn btn-primary d-print-none" onclick="restartClick('1')" aria-label="NewAssessment">New Assessment</button>
+                                <button type="button" class="btn btn-primary d-print-none" onclick="nextClick('6')" aria-label="Var">Change Freq or Power</button>
                             </div>
                         </div>
 
@@ -125,15 +126,21 @@
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label class="col-sm-8 col-form-label" for="umsd">Maximum Safe Distance (ft)</label>
+                                <label class="col-sm-8 col-form-label" for="umsdf">Maximum Safe Distance (ft)</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control-plaintext" id="umsd" name="umsd" readonly>
+                                    <input type="text" class="form-control-plaintext" id="umsdf" name="umsdf" readonly>
                                 </div>
                             </div>
                             <div class="mb-3 row">
                                 <label class="col-sm-8 col-form-label" for="umsdm">Maximum Safe Distance (m)</label>
                                 <div class="col-sm-4">
                                     <input type="text" class="form-control-plaintext" id="umsdm" name="umsdm" radonly>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-8 col-form-label" for="usteirpavg">Duty/Time-Averaged EIRP</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control-plaintext" id="usteirpavg" name="usteirpavg" readonly>
                                 </div>
                             </div>
 
@@ -156,13 +163,19 @@
                             <div class="mb-3 row">
                                 <label class="col-sm-8 col-form-label" for="cmsd">Maximum Safe Distance (ft)</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control-plaintext" id="cmsd" name="cmsd" readonly>
+                                    <input type="text" class="form-control-plaintext" id="cmsdf" name="cmsd" readonly>
                                 </div>
                             </div>
                             <div class="mb-3 row">
                                 <label class="col-sm-8 col-form-label" for="cmsdm">Maximum Safe Distance (m)</label>
                                 <div class="col-sm-4">
                                     <input type="text" class="form-control-plaintext" id="cmsdm" name="cmsdm" readonly>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-sm-8 col-form-label" for="csteirpavg">Duty/Time-Averaged EIRP</label>
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control-plaintext" id="csteirpavg" name="csteirpavg" readonly>
                                 </div>
                             </div>
                         </div>
@@ -192,8 +205,8 @@
     </footer>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="js/oet65.js"></script>
     <script src="js/rfecalc.js"></script>
     <script src="js/rf.js"></script>
-
 </body>
 </html>
