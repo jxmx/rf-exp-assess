@@ -127,7 +127,7 @@ class OET65Calc{
         this.#gain = Math.pow(10, (parseFloat(dbi)/10));
     }
     setGainByDBD(dbd){
-        this.#gain = Math.pow(10, ( parseFloat(dbd + 2.14) / 10));
+        this.#gain = Math.pow(10, ( parseFloat(dbd + 2.15) / 10));
     }
     getGainVal(){
         return this.#gain;
