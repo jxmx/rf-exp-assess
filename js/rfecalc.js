@@ -155,7 +155,7 @@ function runOETCalc(){
 		document.getElementById("erp").value = E;
 		console.log("pwrInAnt: calc: " + E);
 	} else {
-		var P = W2dBW(parseFloat(document.getElementById("power").value));
+		var P = parseFloat(W2dBW(parseFloat(document.getElementById("power").value)));
 		var ALen = parseFloat(document.getElementById("feedlength").value);
 		var ALossRate = parseFloat(document.getElementById("feedloss").value);
 		var ALoss = ALossRate * ( ALen / 100);
@@ -163,7 +163,7 @@ function runOETCalc(){
 		console.log("pwrInAnt: calc: " + pwrInAnt);
 
 		// Calculate and display the ERP
-        var G = document.getElementById("antennagain").value;
+        var G = parseFloat(document.getElementById("antennagain").value);
         document.getElementById("erp").value = dBW2W(P - ALoss + G);
 	}
 
