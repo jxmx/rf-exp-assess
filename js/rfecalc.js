@@ -99,7 +99,7 @@ $('#antennagain').on('input', function() {
 
 $('#txtime').on('input', function() {
 	var input=$(this);
-	if(input.val() > 0 && input.val() < 30){
+	if(input.val() >= 0 && input.val() <= 30){
 		proceedOK = true;
 		input.removeClass("is-invalid").addClass("is-valid");
 	} else {
@@ -110,7 +110,7 @@ $('#txtime').on('input', function() {
 
 $('#rxtime').on('input', function() {
 	var input=$(this);
-	if(input.val() > 0 && input.val() < 30){
+	if(input.val() >= 0 && input.val() <= 30){
 		proceedOK = true;
 		input.removeClass("is-invalid").addClass("is-valid");
 	} else {
