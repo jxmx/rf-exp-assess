@@ -25,10 +25,12 @@
                 <p>The next step is to discover and determine the gain of your antenna. Commercial
                     manufacturers will publish the gain in dBi (gain over a theoretical antenna)
                     or dBd (gain over a dipole) for each band they are designed to be operated on. 
-                    Look up the antenna to be assessed on the manufacturer's website.
+                    Look up the antenna to be assessed on the manufacturer's website. For the purposes
+                    of the FCC Exposure Analysis, the gain must be expressed as dBi. If the published
+                    value is dBd, add 2.15 to the gain before entering it into this form.
                 </p>
                 <p>If the information is unknown, or the antenna is a homebrew, use the table provided
-                    by the ARRL and the RSGB to approximate the gain.
+                    by the <a target="_blank" href="http://www.arrl.org/rf-exposure-calc-instructions#gain">ARRL</a> and the RSGB to approximate the gain.
                 </p>
                 <p>Note: For a highly directional antenna such as a Yagi, keep in mind that this
                 calcuator will only provide the "worse case" scenario. It may be valuable depending
@@ -46,8 +48,8 @@
                                     <input type="text" class="form-control" id="antennatype" name="antennatype" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="antennagain">Antenna Gain</label>
-                                    <br><i>Number only; maximum of one decimal place (e.g. 2.1) - Do not include "dB"</i>
+                                    <label for="antennagain">Antenna Gain dBi</label>
+                                    <br><i>Number only; maximum of one decimal place (e.g. 2.1)</i>
                                     <input type="text" class="form-control" id="antennagain" name="antennagain" required>
                                 </div>
                                 <div class="mb-3">
