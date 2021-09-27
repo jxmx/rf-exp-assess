@@ -58,6 +58,16 @@
                                     <input type="text" class="form-control" id="radioname" name="feedtype" required>
                                 </div>
                                 <div class="mb-3">
+                                    <label for="feedunit">Feedline Unit of Measure</label>
+                                    <br><i>This calculator works with either feet or meters, but the feedline length
+                                        and the feedline losses per 100 units must be int he same unit of measurement
+                                        or the calculation will be in correct.                                    </i>
+                                    <select class="form-select" aria-label="select duty cycle" id="feedunit" name="feedunit">
+                                        <option value="ft" selected="selected">ft</option>
+                                        <option value="m">m</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
                                     <label for="feedlength">Feedline Length (ft)</label>
                                     <br><i>Number only; maximum of one decimal place (e.g. 25.5) - Do not include any unit of meature (e.g. ft, m)</i>
                                     <input type="text" class="form-control" id="feedlength" name="feedlength" required>
