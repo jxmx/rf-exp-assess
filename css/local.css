@@ -1,3 +1,59 @@
+/* 
+ * Black Coral #465362 / rgb(70, 83, 98)
+ * Cultured #F4F4F6 / rgb(244, 244, 246)
+ * Coquelicot #F34213 / rgb(243, 66, 19)
+ * Titanium Yellow #F4E409 / rgb(244, 228, 9)
+ * Claret #840032 / rgb(132, 0, 50)
+ */
+
+:root {
+	--black-coral: rgb(70, 83, 98);
+	--cultured: rgb(244, 244, 246);
+	--coquelicot: rgb(243, 66, 19);
+	--titanium-yellow: rgb(244, 228, 9);
+	--claret: rgb(132, 0, 50);
+}
+
+body {
+	background-color: var(--cultured);
+}
+
+a:active, a:visited, a:hover, a:link {
+	text-decoration: none;
+}
+
+.headerbar {
+	background-color: var(--black-coral); 
+	color: var(--coquelicot);
+	font-size: 1.5em;
+}
+
+.choosepath h2{
+	color: var(--coquelicot);
+	font-weight: bolder;
+	text-align: center;
+	font-size: 1.5em;
+}
+
+.card-footer {
+	background-color: var(--coquelicot);
+	color: white;
+	text-align: center;
+	font-weight: bolder;
+}
+
+.disclaimer {
+	background-color: var(--titanium-yellow);
+	color: black;
+	font-size: 0.8em;
+}
+
+.disclaimer h2{
+	text-align: center;
+	font-size: 1em;
+	font-weight: bolder;
+}
+
 .form-l label {
 	font-weight: bold;
 }
@@ -7,11 +63,14 @@
 	font-weight: bold;
 }
 
-.wizbut {
-	text-align: center;
+#svgdefs{
+	position: absolute;
+	width: 0;
+	height: 0;
+	overflow: hidden;
 }
 
-.bg-red {
-	background-color: #AA0310;
-	color: white;
+.svgicon {
+	width: 1.2em;
+	height: 1.2em;
 }

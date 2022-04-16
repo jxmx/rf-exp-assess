@@ -5,67 +5,103 @@
 	<title>Ham Radio RF Exposure Calculator</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/local.css" rel="stylesheet">
-    <link rel="shortcut icon" href="img/rfe.png" sizes="any">
+    <link rel="shortcut icon" href="img/rflogo.png" sizes="any">
 </head>
 <body>
+    <svg aria-hidden="true" id="svgdefs" version="2" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <symbol id="rt-chevron" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path>
+            </symbol>
+            <symbol id="lt-chevron" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path>
+            </symbol>
+            <symbol id="miterboard" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path d="M12 14l9-5-9-5-9 5 9 5z"></path><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"></path>
+            </symbol>
+            <symbol id="lightbulb" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+            </symbol>
+        </defs>
+    </svg>
     <header>
-        <div class="container-fluid shadow-sm p-3 mb-5 bg-red rounded">
-            <h1>RF Exposure Assessment Tool</h1>   
+        <div class="container-fluid p-1 mb-5 headerbar">
+            <img src="img/rflogo.png" height="50px" class="mx-2" />
+            <span class="mx-3">RF Exposure Assessment Calculator</span>
         </div>    
     </header>
 <main>
-	<div class="container-fluid px-5">
-        <div class="row">             
-            <div class="main-content alert alert-danger">
-                <p><b>Important Disclaimer</b></p>
-                <p>This site is one interpretation of the requirements of an amateur radio operator's obligations
-                    and method for ensuring compliance with the United States Federal Communication Comission's 
-                    requirements for RF exposure safety and analysis as required in OET Bulletin 65 and other 
-                    rules and regulations. This site is only guidance and may be incorrect or out-of-date with
-                    current rules and interpretations of such rules. Use of this site is solely at your own risk
-                    and the author(s) and operator(s) disclaim all liability resulting in any penalty or injury based
-                    on information from this site. This site must never be used to ensure public safety or for commercial
-                    purposes.
-                </p>
-            </div>   
-        </div>
-                        
+	<div class="container-md bg-white p-3">                      
         <div class="row">
-            <p>Amateur Radio is basically a safe activity. In recent years, however, there has been considerable discussion and concern about the possible hazards of electromagnetic radiation, including both RF energy and power-frequency (50-60 Hz) electromagnetic fields.  To allay such concerns, the FCC set limits on the amount of RF energy people can be exposed to. Starting on May 3, 2021 all amateur radio stations need to be evaluated to see if they are in compliance with the rules.</p>
+            <p>The <i>RF Exposure Assessment Calculator</i> is a tool for licensed radio amateurs 
+            to calculate controlled and uncontrolled radiofrequency electromagnetic fields
+            as required in OET Bulletin 65 Ed 97-01. The categorical exemption for the Part 97
+            radio service (amateur radio) was removed on May 3, 2021. This tool will aid in
+            the assessment of an amateur radio station and provide a printable report for filing
+            to comply with the FCC rules on radiofrequency safety.
+        </div>
+
+        <div class="row choosepath">
+            <h2>Choose Your Path</h2>
         </div>
         
         <div class="row equal justify-content-around">
-            <div class="col-4 bg-light m-3 p-3 border rounded-3 border-primary">
-                <div>
-                    I need a detailed walkthrough with aids and examples to perform my calculation.
-                    To determine and document compliance of your amateur radio station(s),
-                    this site will walk you through the following steps:</p>
-                <ul>
-                    <li>Radio Output Power</li>
-                    <li>Power into the antenna</li>
-                    <li>Antenna gain</li>
-                    <li>Completion of the OET calculations to determine exposure</li>
-                </ul>
-                </div>
-                <div class="wizbut">
-                    <a href="1.html"><button type="button" class="btn btn-primary">Go</button></a>
+            <div class="col-md-4 shadow m-3 p-3">
+                <div class="card h-100">
+                    <svg><use href="#lightbulb"></use></svg>
+                    <div class="card-body text-center">
+                    <p>Do a fully-assisted walkthrough of a calculation</p>
+                    </div>
+                    <a href="1.html">
+                        <div class="card-footer">
+                            Start&nbsp;<svg class="svgicon"><use href="#rt-chevron"></use></svg>
+                        </div>
+                    </a>
                 </div>
             </div>
-            <div class="col-4 bg-light m-3 p-3 border rounded-3 border-primary">
-                <div>
-                    I know what I'm doing and want to perform a quick calculation.
-                </div>
-                <div class="wizbut">
-                    <a href="oet65.html"><button type="button" class="btn btn-primary">Go</button></a>
+
+            <div class="col-md-4 shadow m-3 p-3">
+                <div class="card h-100">
+                    <svg><use href="#miterboard"></use></svg>
+                    <div class="card-body text-center">
+                        <p>Quick calculation without walkthrough</p>
+                    </div>
+                    <a href="oet65.html">
+                        <div class="card-footer">
+                            Start&nbsp;<svg class="svgicon"><use href="#rt-chevron"></use></svg>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
 	</div>
 
+
 	<script src="js/bootstrap.min.js"></script>
 	<!--<script src="js/jquery-3.6.0.min.js"></script>-->
 </main>
+<footer>
+    <div class="container-fluid mt-3">             
+        <div class="row disclaimer px-5 py-2">
+            <h2>Important Disclaimer</h2>
+            <p>This site is one interpretation of the requirements of an amateur radio operator's obligations
+                and methods for ensuring compliance with the United States Federal Communication Commission's 
+                requirements for RF exposure safety and analysis as required in OET Bulletin 65 and other 
+                rules and regulations. This site is only guidance and may be incorrect or out-of-date with
+                current rules and interpretations of such rules. Use of this site is solely at your own risk
+                and the author(s) and operator(s) disclaim all liability resulting in any penalty or injury based
+                on information from this site. This site must never be used to ensure public safety or for commercial
+                purposes.
+            </p>
+            <hr>
+            <p style="text-align:center">Copyright &copy; Jason D. McCormick under the terms of the MIT License | 
+                <a href="https://github.com/jxmx/rf-exp-assess">Code on GitHub</a> |
+                Release: $Id$
+            </p>
+
+        </div>   
+    </div>
+</footer>
 
 </body>
 </html>
-z
