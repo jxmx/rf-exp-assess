@@ -2,37 +2,53 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Ham Radio RF Exposure Calculator</title>
+	<title>Amateur Radio RF Exposure Calculator</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/local.css" rel="stylesheet">
-	<link rel="shortcut icon" href="img/rfe.png" sizes="any">
+	<link rel="shortcut icon" href="img/rflogo.png" sizes="any">
 </head>
 <body>
+    <svg aria-hidden="true" id="svgdefs" version="2" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <symbol id="rt-chevron" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path>
+            </symbol>
+            <symbol id="lt-chevron" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path>
+            </symbol>
+            <symbol id="miterboard" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path d="M12 14l9-5-9-5-9 5 9 5z"></path><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"></path>
+            </symbol>
+            <symbol id="lightbulb" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+            </symbol>
+        </defs>
+    </svg>
     <header>
-        <div class="container-fluid shadow-sm p-3 mb-5 bg-red rounded">
-            <h1>RF Exposure Assessment Tool</h1>   
+        <div class="container-fluid p-1 mb-5 headerbar">
+            <img src="img/rflogo.png" height="50px" class="mx-2" />
+            <span class="mx-3">RF Exposure Assessment Calculator</span>
         </div>    
     </header>
 <main>
-	<div class="container-fluid px-5">
-        <div class="row bg-light">
-            <div class="progress">
-                <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="90" aria-valuemin="90" aria-valuemax="100"></div>
+	<div class="container-md bg-white p-3 mb-5">
+        <div class="row calc-header">
+            <h2>Change Power and/or Frequency</h2>
+            <div class="progress p-0">
+                <div class="progress-bar progress-bar-striped" style="width: 90%" role="progressbar" aria-valuenow="90" aria-valuemin="100" aria-valuemax="100"></div>
             </div>
-        </div>  
-        <div class="row mt-3">               
-                <h2>Change Power or Frequency</h2>
-                <p>Often the same system must be asssessed for different frequencies and power levels.
-                This screen can change the frequency, input power, or both and will return to
-                the assessment report with the new values.
-                </p>
+        </div> 
+        <div class="row my-3">               
+            <p>Often the same system must be asssessed for different frequencies and power levels.
+            This screen can change the frequency, input power, or both and will return to
+            the assessment report with the new values.</p>
         </div>
         <div class="row">
                 <p>Enter the radio, frequency, and power level to be evaluated:</p>
                 <form id="report" name="report" class="form-l">
                     <div class="container-md">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="frequency">Frequency</label>
                                     <br><i>Enter the frequency in MHz in the format NNN.NNN. Trailing zeros are not necessary.</i>
@@ -44,71 +60,71 @@
                                     <input type="text" class="form-control" id="power" name="power" required>
                                 </div>
                                 <div class="mb-3">
-                                    <button type="button" class="btn btn-primary" onclick="nextClick('5')">Recalculate</button>
+                                    <button type="button" onclick="nextClick('5')">Recalculate</button>
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-md-6">
                                 <div class="mb-3 row bg-primary">
                                     <p class="text-center text-white text-bold"><b>Entered Station Information</b></p>
                                 </div>
                                 <div class="mb-3 row">
-                                    <label class="col-sm-6 col-form-label" for="radioname">Radio</label>
-                                    <div class="col-sm-6">
+                                    <label class="col-md-8 col-form-label" for="radioname">Radio</label>
+                                    <div class="col-md-4">
                                         <input type="text" class="form-control-plaintext" id="radioname" name="radioname" readonly>
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
-                                    <label class="col-sm-6 col-form-label" for="feedtype">Feedline Type</label>
-                                    <div class="col-sm-6">
+                                    <label class="col-md-8 col-form-label" for="feedtype">Feedline Type</label>
+                                    <div class="col-md-4">
                                         <input type="text" class="form-control-plaintext" id="feedtype" name="feedtype" readonly>
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
-                                    <label class="col-sm-6 col-form-label" for="feedlength">Feedline Length</label>
-                                    <div class="col-sm-6">
+                                    <label class="col-md-8 col-form-label" for="feedlength">Feedline Length</label>
+                                    <div class="col-md-4">
                                         <input type="text" class="form-control-plaintext" id="feedlength" name="feedlength" readonly>
                                         <input type="text" class="form-control-plaintext" id="feedunit" name="feedunit" readonly>
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
-                                    <label class="col-sm-6 col-form-label" for="feedloss">Power Loss per 100 units (dB)</label>
-                                    <div class="col-sm-6">
+                                    <label class="col-md-8 col-form-label" for="feedloss">Power Loss per 100 units (dB)</label>
+                                    <div class="col-md-4">
                                         <input type="text" class="form-control-plaintext" id="feedloss" name="feedloss" readonly>
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
-                                    <label class="col-sm-6 col-form-label" for="antennatype">Antenna Type</label>
-                                    <div class="col-sm-6">
+                                    <label class="col-md-6 col-form-label" for="antennatype">Antenna Type</label>
+                                    <div class="col-md-6">
                                         <input type="text" class="form-control-plaintext" id="antennatype" name="antennatype" readonly>
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
-                                    <label class="col-sm-6 col-form-label" for="antennagain">Antenna Gain (dB)</label>
-                                    <div class="col-sm-6">
+                                    <label class="col-md-6 col-form-label" for="antennagain">Antenna Gain (dB)</label>
+                                    <div class="col-md-6">
                                         <input type="text" class="form-control-plaintext" id="antennagain" name="antennagain" readonly>
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
-                                    <label class="col-sm-6 col-form-label" for="dutycycle">Duty Cycle (%)</label>
-                                    <div class="col-sm-6">
+                                    <label class="col-md-6 col-form-label" for="dutycycle">Duty Cycle (%)</label>
+                                    <div class="col-md-6">
                                         <input type="text" class="form-control-plaintext" id="dutycycle" name="dutycycle" readonly>
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
-                                    <label class="col-sm-6 col-form-label" for="txtime">Tx Time (min)</label>
-                                    <div class="col-sm-6">
+                                    <label class="col-md-6 col-form-label" for="txtime">Tx Time (min)</label>
+                                    <div class="col-md-6">
                                         <input type="text" class="form-control-plaintext" id="txtime" name="txtime" readonly>
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
-                                    <label class="col-sm-6 col-form-label" for="rxtime">Rx Time (min)</label>
-                                    <div class="col-sm-6">
+                                    <label class="col-md-6 col-form-label" for="rxtime">Rx Time (min)</label>
+                                    <div class="col-md-6">
                                         <input type="text" class="form-control-plaintext" id="rxtime" name="rxtime" readonly>
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
-                                    <label class="col-sm-6 col-form-label" for="rxtime">Include Ground-Effect</label>
-                                    <div class="col-sm-6">
+                                    <label class="col-md-6 col-form-label" for="rxtime">Include Ground-Effect</label>
+                                    <div class="col-md-6">
                                         <input class="form-check-input" type="checkbox" value="" id="groundeffect" name="groundeffect" readonly>
                                     </div>
                                 </div>
@@ -121,21 +137,26 @@
 	</div>
 </main>
 <footer>
-        <div class="container-fluid p-5">
-        <div class="row">               
-            <div class="main-content alert alert-danger">
-                <p><b>Important Disclaimer</b></p>
-                <p>This site is one interpretation of the requirements of an amateur radio operator's obglications
-                    and method for ensuring compliance with the United States Federal Communication Comission's 
-                    requirements for RF exposure safety and analysis as required in OET Bulletin 65 and other 
-                    rules and regulations. This site is only guidance and may be incorrect or out-of-date with
-                    current rules and interpretations of such rules. Use of this site is solely at your own risk
-                    and the author(s) and operator(s) disclaim all liability resulting in any penalty or injury based
-                    on information from this site. This site must never be used to ensure public safety or for commercial
-                    purposes.
-                </p>
-            </div>   
+    <div class="container-fluid">             
+        <div class="row disclaimer px-5 py-2">
+            <h2>Important Disclaimer</h2>
+            <p>This site is one interpretation of the requirements of an amateur radio operator's obligations
+                and methods for ensuring compliance with the United States Federal Communication Commission's 
+                requirements for RF exposure safety and analysis as required in OET Bulletin 65 and other 
+                rules and regulations. This site is only guidance and may be incorrect or out-of-date with
+                current rules and interpretations of such rules. Use of this site is solely at your own risk
+                and the author(s) and operator(s) disclaim all liability resulting in any penalty or injury based
+                on information from this site. This site must never be used to ensure public safety or for commercial
+                purposes.
+            </p>
         </div>
+        <div class="row bottom-footer px-5 py-2">
+            <p style="text-align:center">Copyright &copy; Jason D. McCormick under the terms of the MIT License | 
+                <a href="https://github.com/jxmx/rf-exp-assess">Code on GitHub</a> |
+                Git Commit: $Id$
+            </p>
+
+        </div>   
     </div>
 </footer>
 <script src="js/bootstrap.min.js"></script>

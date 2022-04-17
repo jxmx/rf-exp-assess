@@ -2,26 +2,37 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Ham Radio RF Exposure Calculator</title>
+	<title>Amateur Radio RF Exposure Calculator</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	<link href="css/local.css" rel="stylesheet">
-	<link rel="shortcut icon" href="img/rfe.png" sizes="any">
+	<link rel="shortcut icon" href="img/rflogo.png" sizes="any">
 </head>
 <body>
+    <svg aria-hidden="true" id="svgdefs" version="2" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <symbol id="rt-chevron" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7"></path>
+            </symbol>
+            <symbol id="lt-chevron" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"></path>
+            </symbol>
+        </defs>
+    </svg>
     <header>
-        <div class="container-fluid shadow-sm p-3 mb-5 bg-red rounded">
-            <h1>RF Exposure Assessment Tool</h1>   
+        <div class="container-fluid p-1 mb-5 headerbar">
+            <img src="img/rflogo.png" height="50px" class="mx-2" />
+            <span class="mx-3">RF Exposure Assessment Calculator</span>
         </div>    
     </header>
 <main>
-	<div class="container-fluid px-5">
-        <div class="row bg-light">
+	<div class="container-md bg-white p-3 mb-5">
+        <div class="row calc-header">
+            <h2>Step 2 - Determine Feedline Loss</h2>
             <div class="progress p-0">
                 <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
         </div>  
-        <div class="row mt-3">             
-                <h2>Step 2 - Determine Feedline Loss</h2>
+        <div class="row mt-3">
                 <p>The next step is to discover and determine the power loss created by the feedline
                     between the radio and the antenna. For the purposes of this calculation, to err on the side of caution,
                     small losses from barrel connectors, etc. will be ignored.
@@ -46,13 +57,13 @@
                     <a target="_blank" href="https://www.timesmicrowave.com/Calculator">Times Microwave Calculator</a>,
                     or other major vendor source as an approximation.
                 </p>
-                
-                </p>
-                <p>Enter the feedline info to be evaluated:</p>
                 <form id="report" name="report" class="form-l">
                     <div class="container-md">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-md-6">
+                                <div class="row subheaderbar">
+                                    <p class="text-center text-white text-bold">Enter Feedline Information</p>
+                                </div>
                                 <div class="mb-3">
                                     <label for="feedtype">Feedline Type</label>
                                     <input type="text" class="form-control" id="radioname" name="feedtype" required>
@@ -78,14 +89,14 @@
                                     <input type="text" class="form-control" id="feedloss" name="feedloss" required>
                                 </div>
                                 <div class="mb-3">
-                                    <button type="button" class="btn btn-primary" onclick="backClick('1')">Back</button>
-                                    <button type="button" class="btn btn-primary" onclick="nextClick('3')">Next</button>
+                                    <button type="button" class="shadow" onclick="backClick('1')"><svg class="svgicon"><use href="#lt-chevron"></use></svg>&nbsp;Back</button>
+                                    <button type="button" class="shadow" onclick="nextClick('3')">Next&nbsp;<svg class="svgicon"><use href="#rt-chevron"></use></svg></button>
                                 </div>
                             </div>
 
-                            <div class="col-6 px-5 report-out">
-                                <div class="mb-3 row bg-primary">
-                                    <p class="text-center text-white text-bold"><b>Entered Station Information</b></p>
+                            <div class="col-md-6 px-5 report-out">
+                                <div class="row subheaderbar">
+                                    <p class="text-center text-white text-bold">Entered Information</p>
                                 </div>
                                 <div class="mb-3 row">
                                     <label class="col-sm-6 col-form-label" for="radioname">Radio</label>
@@ -114,24 +125,28 @@
 	</div>
 </main>
 <footer>
-        <div class="container-fluid p-5">
-        <div class="row">               
-            <div class="main-content alert alert-danger">
-                <p><b>Important Disclaimer</b></p>
-                <p>This site is one interpretation of the requirements of an amateur radio operator's obglications
-                    and method for ensuring compliance with the United States Federal Communication Comission's 
-                    requirements for RF exposure safety and analysis as required in OET Bulletin 65 and other 
-                    rules and regulations. This site is only guidance and may be incorrect or out-of-date with
-                    current rules and interpretations of such rules. Use of this site is solely at your own risk
-                    and the author(s) and operator(s) disclaim all liability resulting in any penalty or injury based
-                    on information from this site. This site must never be used to ensure public safety or for commercial
-                    purposes.
-                </p>
-            </div>   
+    <div class="container-fluid">             
+        <div class="row disclaimer px-5 py-2">
+            <h2>Important Disclaimer</h2>
+            <p>This site is one interpretation of the requirements of an amateur radio operator's obligations
+                and methods for ensuring compliance with the United States Federal Communication Commission's 
+                requirements for RF exposure safety and analysis as required in OET Bulletin 65 and other 
+                rules and regulations. This site is only guidance and may be incorrect or out-of-date with
+                current rules and interpretations of such rules. Use of this site is solely at your own risk
+                and the author(s) and operator(s) disclaim all liability resulting in any penalty or injury based
+                on information from this site. This site must never be used to ensure public safety or for commercial
+                purposes.
+            </p>
         </div>
+        <div class="row bottom-footer px-5 py-2">
+            <p style="text-align:center">Copyright &copy; Jason D. McCormick under the terms of the MIT License | 
+                <a href="https://github.com/jxmx/rf-exp-assess">Code on GitHub</a> |
+                Git Commit: $Id$
+            </p>
+
+        </div>   
     </div>
 </footer>
-<script src="js/bootstrap.min.js"></script>
 <script src="js/jquery-3.6.0.min.js"></script>
 <script src="js/rfecalc.js"></script>
 <script src="js/rf.js"></script>
