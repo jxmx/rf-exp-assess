@@ -48,6 +48,12 @@ a:active, a:visited, a:hover, a:link {
 	font-size: 0.8em;
 }
 
+.bottom-footer {
+	background-color: var(--black-coral);
+	color: white;
+	font-size: 0.8em;
+}
+
 .disclaimer h2{
 	text-align: center;
 	font-size: 1em;
@@ -73,4 +79,22 @@ a:active, a:visited, a:hover, a:link {
 .svgicon {
 	width: 1.2em;
 	height: 1.2em;
+}
+
+.calc-header h2{
+	color: var(--coquelicot);
+	font-weight: bolder;
+	text-align: center;
+	font-size: 1.5em;
+}
+
+.table-primary td{
+	color: var(--titanium-yellow);
+	background-color: var(--black-coral);
+}
+
+.btn-primary {
+	background-color: var(--coquelicot);
+	color: white;
+	border-color: var(--titanium-yellow);
 }
