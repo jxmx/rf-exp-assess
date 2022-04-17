@@ -26,7 +26,14 @@ a:active, a:visited, a:hover, a:link {
 .headerbar {
 	background-color: var(--black-coral); 
 	color: var(--coquelicot);
-	font-size: 1.5em;
+	font-size: 1.25em;
+	font-weight: bold;	
+}
+
+.subheaderbar{
+	background-color: var(--black-coral); 
+	color: var(--coquelicot);
+	font-size: 1.25em;
 }
 
 .choosepath h2{
@@ -106,4 +113,8 @@ button {
 	padding-bottom: 5px;
 	padding-left: 10px;
 	padding-right: 10px;
+}
+
+.progress-bar {
+	background-color: var(--coquelicot);	
 }
