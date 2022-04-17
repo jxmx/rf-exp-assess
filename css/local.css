@@ -20,6 +20,7 @@ body {
 
 a:active, a:visited, a:hover, a:link {
 	text-decoration: none;
+	color: var(--coquelicot);
 }
 
 .headerbar {
@@ -52,10 +53,6 @@ a:active, a:visited, a:hover, a:link {
 	background-color: var(--black-coral);
 	color: white;
 	font-size: 0.8em;
-}
-
-.bottom-footer a, .bottom-footer a:hover, .bottom-footer a:visited, .bottom-footer a:active {
-	color: var(--coquelicot);
 }
 
 .disclaimer h2{
@@ -97,8 +94,16 @@ a:active, a:visited, a:hover, a:link {
 	background-color: var(--black-coral);
 }
 
-.btn-primary {
+button {
 	background-color: var(--coquelicot);
+	border: none;
 	color: white;
-	border-color: var(--titanium-yellow);
+	font-weight: bold;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
 }
