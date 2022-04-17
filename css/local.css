@@ -54,6 +54,10 @@ a:active, a:visited, a:hover, a:link {
 	font-size: 0.8em;
 }
 
+.bottom-footer a, .bottom-footer a:hover, .bottom-footer a:visited, .bottom-footer a:active {
+	color: var(--coquelicot);
+}
+
 .disclaimer h2{
 	text-align: center;
 	font-size: 1em;
