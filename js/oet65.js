@@ -8,6 +8,23 @@
 // browsers, notably private class fields
 
 // Some general support functions
+// All load hooks
+// Current time is always useful
+function currentTimestamp() {
+	function pad(n) { return n<10 ? '0'+n : n }
+	var d = new Date();
+	return d.getUTCFullYear()+'-'
+         + pad(d.getUTCMonth()+1)+'-'
+         + pad(d.getUTCDate())+' '
+         + pad(d.getUTCHours())+':'
+         + pad(d.getUTCMinutes())+':'
+         + pad(d.getUTCSeconds())+' ';
+};
+
+window.addEventListener("load", function(){
+    var now = currentTimestamp();
+    document.getElementById("x-timestamp").innerText = now + " UTC";
+});
 
 // Power Density table lookups from OET 65 Appendix A Table 1 for MPE
 // For a given frequency in MHz, return the power density in mW/cm^2
