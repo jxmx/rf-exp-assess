@@ -89,10 +89,44 @@ window.addEventListener("load", function(){
     var fileName = location.href.split("/").slice(-1);
 
     // calculate the form if we're on the display page
-    if( fileName == "5.html"){
+    if( fileName == "5.html" || fileName == "print.html"){
         var now = currentTimestamp();
         document.getElementById("x-timestamp").innerText = now + " UTC";
         runOETCalc();
+    }
+
+    // print the print page
+    if( fileName == "print.html"){
+        window.print();
+    }
+});
+
+var postPrint = false;
+
+window.addEventListener("beforeprint", function(){
+    var fileName = location.href.split("/").slice(-1);
+    if( fileName == "5.html"){
+        document.getElementById("mainbody").style.display = "none";
+        document.getElementById("not-printable").style.display = "contents";
+    }
+});
+
+window.addEventListener("afterprint", function(){
+    var fileName = location.href.split("/").slice(-1);    
+    if( fileName == "5.html"){
+        document.getElementById("mainbody").style.display = "contents";
+        document.getElementById("not-printable").style.display = "none";
+    }
+    if( fileName == "print.html"){
+        postPrint = true;
+    }
+});
+
+window.addEventListener("focus", function(){
+    var fileName = location.href.split("/").slice(-1); 
+
+    if( fileName == "print.html" && postPrint){
+        window.location = "5.html"
     }
 });
 

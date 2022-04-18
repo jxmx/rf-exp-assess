@@ -118,3 +118,51 @@ button {
 .progress-bar {
 	background-color: var(--coquelicot);	
 }
+
+.not-printable {
+	display: none;
+}
+
+@media print {
+	html, body {
+		
+		font-size: 11pt;
+	}
+
+	table h2 {
+		font-size: 14pt;
+		font-weight: bolder;
+	}
+
+	.td-field {
+		font-weight: bolder;
+	}
+	
+	.td-value {
+		font-family: 'Courier New', Courier, monospace;
+	}
+
+	.disclaimer {
+		color: black;
+		font-size: 0.8em;
+	}
+	
+	.bottom-footer {
+		font-size: 0.8em;
+	}
+	
+	.disclaimer h2{
+		text-align: center;
+		font-size: 1em;
+		font-weight: bolder;
+	}
+
+	.form-check-input:checked {
+		background-color: black;
+		border-color: black;
+	}
+
+	.form-check-input {
+		border-color: black;
+	}
+}
