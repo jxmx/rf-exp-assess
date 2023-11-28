@@ -40,7 +40,11 @@ window.addEventListener("load", function(){
 			$('#rxtime').val(0).change();
 		}
 		$('#groundeffect').prop("checked", O.getGroundEffect());
+		$('#groundeffect').removeClass("is-invalid").addClass("is-valid");		
 		$("#dutycycle").val(O.getDutyCycleLabel());
+		if( O.getDutyCycleLabel() !== "ZZZ" ){
+			$("#dutycycle").removeClass("is-invalid").addClass("is-valid");
+		}
 		$("#dutycyclepct").val(O.getDutyCycle() * 100).change();
 	}
 });
