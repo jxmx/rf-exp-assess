@@ -1,3 +1,9 @@
+//
+// (C) Copyright 2022-2024 Jason D. McCormick
+// Distributed under the terms of the MIT License available
+// at https://raw.githubusercontent.com/jxmx/rf-exp-assess/main/LICENSE
+//
+
 // All load hooks
 window.addEventListener("load", function(){
     var fileName = location.href.split("/").slice(-1)[0];

@@ -1,4 +1,9 @@
 //
+// Copyright (C) 2021-2024 Jason D. McCormick
+// Distributed under the terms of the MIT License available
+// at https://raw.githubusercontent.com/jxmx/rf-exp-assess/main/LICENSE
+//
+//
 // oet65.js - Implement the calculations of RF exposure based on FCC 
 // Note all references are based on OET65 Edition 97-01
 // found at https://transition.fcc.gov/Bureaus/Engineering_Technology/Documents/bulletins/oet65/oet65.pdf

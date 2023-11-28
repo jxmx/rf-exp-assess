@@ -1,3 +1,9 @@
+//
+// Copyright (C) 2021-2024 Jason D. McCormick
+// Distributed under the terms of the MIT License available
+// at https://raw.githubusercontent.com/jxmx/rf-exp-assess/main/LICENSE
+//
+
 // Form validators
 
 O = new OET65Calc();
