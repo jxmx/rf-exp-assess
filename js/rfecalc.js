@@ -1,60 +1,96 @@
 // Form validators
-// There's probably a better way do to do this....
 
-proceedOK = false;
+O = new OET65Calc();
 
-$('#radioname').on('input', function() {
+window.addEventListener("load", function(){
+	if( window.localStorage.getItem("OET65")){
+		O.deseralize(localStorage.getItem("OET65"));
+		$('#radioname').val(O.getRadioName()).change();
+		$('#frequency').val(O.getFreq()).change();
+		$('#power').val(O.getPower()).change();
+		$('#feedtype').val(O.getFeedType()).change();
+		$('#feedlength').val(O.getFeedLength()).change();
+		if( O.getFeedUnit() !== "m" ){
+			$('#feedunit').val("ft").change();
+			O.setFeedUnit("ft");
+		}
+		$('#feedunit').removeClass("is-invalid").addClass("is-valid");
+		$('#feedloss').val(O.getFeedLoss()).change();
+		$('#antennatype').val(O.getAntennaType()).change();
+		if( O.getGainVal() ){
+			$('#antennagain').val(O.getGainVal()).change();
+		} else {
+			O.setGain(2.2);
+			$('#antennagain').val(2.2).change();
+		}
+		if( parseFloat(O.getTxTime()) > 0){
+			$('#txtime').val(O.getTxTime()).change();
+		} else {
+			$('#txtime').val(0).change();
+		}
+		if( parseFloat(O.getRxTime()) > 0){
+			$('#rxtime').val(O.getRxTime()).change();
+		} else {
+			$('#rxtime').val(0).change();
+		}
+		$('#groundeffect').prop("checked", O.getGroundEffect());
+		$("#dutycycle").val(O.getDutyCycleLabel());
+		$("#dutycyclepct").val(O.getDutyCycle() * 100).change();
+	}
+});
+
+$('#radioname').on('change', function() {
 	var input=$(this);
 	var re = /^.+$/;
 	var is_valid = re.test(input.val());
 	if(is_valid){
-		proceedOK = true;
+		O.setRadioName(input.val());
 		input.removeClass("is-invalid").addClass("is-valid");
 	} else {
-		proceedOK= false;
+		O.setRadioName(null);
 		input.removeClass("is-valid").addClass("is-invalid");
 	}
 });
 
-$('#frequency').on('input', function() {
+$('#frequency').on('change', function() {
 	var input=$(this);
     if(input.val() >= 0.3 && input.val() < 100000){
-		proceedOK = true;
+		O.setFreq(input.val());
 		input.removeClass("is-invalid").addClass("is-valid");
 	} else {
-		proceedOK= false;
+		O.setFreq(null);
 		input.removeClass("is-valid").addClass("is-invalid");
 	}
 });
 
-$('#power').on('input', function() {
+$('#power').on('change', function() {
 	var input=$(this);
     if(input.val() > 0 && input.val() < 1500.1){
-		proceedOK = true;
+		O.setPower(input.val());
 		input.removeClass("is-invalid").addClass("is-valid");
 	} else {
-		proceedOK= false;
+		O.setPower(null);
 		input.removeClass("is-valid").addClass("is-invalid");
 	}
 });
 
-$('#feedtype').on('input', function() {
+$('#feedtype').on('change', function() {
 	var input=$(this);
 	var re = /^.+$/;
 	var is_valid = re.test(input.val());
 	if(is_valid){
-		proceedOK = true;
+		O.setFeedType(input.val());
 		input.removeClass("is-invalid").addClass("is-valid");
 	} else {
-		proceedOK= false;
+		O.setFeedType(null);
 		input.removeClass("is-valid").addClass("is-invalid");
 	}
 });
 
-$('#feedlength').on('input', function() {
+$('#feedlength').on('change', function() {
 	var input=$(this);
     if(input.val() > 0 ){
-		proceedOK = true;
+		O.setFeedLength(input.val());
 		input.removeClass("is-invalid").addClass("is-valid");
 	} else {
 		proceedOK= false;
@@ -62,10 +98,10 @@ $('#feedlength').on('input', function() {
 	}
 });
 
-$('#feedloss').on('input', function() {
+$('#feedloss').on('change', function() {
 	var input=$(this);
     if(input.val() > 0 && input.val() < 20){
-		proceedOK = true;
+		O.setFeedLoss(input.val())
 		input.removeClass("is-invalid").addClass("is-valid");
 	} else {
 		proceedOK= false;
@@ -73,97 +109,123 @@ $('#feedloss').on('input', function() {
 	}
 });
 
-$('#antennatype').on('input', function() {
+$('#antennatype').on('change', function() {
 	var input=$(this);
 	var re = /^.+$/;
 	var is_valid = re.test(input.val());
 	if(is_valid){
-		proceedOK = true;
+		O.setAntennaType(input.val());
 		input.removeClass("is-invalid").addClass("is-valid");
 	} else {
-		proceedOK= false;
+		O.setAntennaType(null);
 		input.removeClass("is-valid").addClass("is-invalid");
 	}
 });
 
-$('#antennagain').on('input', function() {
+$('#antennagain').on('change', function() {
 	var input=$(this);
-    if(input.val() > 0 && input.val() < 20){
-		proceedOK = true;
+    if(input.val() > -30 && input.val() < 30){
+		O.setGain(input.val());
 		input.removeClass("is-invalid").addClass("is-valid");
 	} else {
-		proceedOK= false;
+		O.setGain(null);
 		input.removeClass("is-valid").addClass("is-invalid");
 	}
 });
 
-$('#txtime').on('input', function() {
+$('#txtime').on('change', function() {
 	var input=$(this);
-	if(input.val() >= 0 && input.val() <= 30){
-		proceedOK = true;
+	if(input.val() > 0 && input.val() <= 30){
+		O.setTxTime(input.val());
 		input.removeClass("is-invalid").addClass("is-valid");
 	} else {
-		proceedOK= false;
+		O.setTxTime(null);
 		input.removeClass("is-valid").addClass("is-invalid");
 	}
 });
 
-$('#rxtime').on('input', function() {
+$('#rxtime').on('change', function() {
 	var input=$(this);
-	if(input.val() >= 0 && input.val() <= 30){
-		proceedOK = true;
+	if(input.val() > 0 && input.val() <= 30){
+		O.setRxTime(input.val());
 		input.removeClass("is-invalid").addClass("is-valid");
 	} else {
-		proceedOK= false;
+		O.setRxTime(null);
 		input.removeClass("is-valid").addClass("is-invalid");
 	}
 });
 
-$('#dutycycle').on('input', function() {
+$('#dutycycle').on('change', function() {
+	var input=$(this);
+	if(input.val() !== "ZZZ"){
+		O.setDutyCycle($("#dutycycle option:selected").text());
+		O.setDutyCycleLabel(input.val());
+		input.removeClass("is-invalid").addClass("is-valid");
+	} else {
+		O.setDutyCycle(null);
+		O.setDutyCycleLabel(null);
+		input.removeClass("is-valid").addClass("is-invalid");
+	}
+});
+
+$('#dutycycle').on('change', function() {
+	var input=$(this);
+	if(input.val() !== "ZZZ"){
+		O.setDutyCycle($("#dutycycle option:selected").text());
+		O.setDutyCycleLabel(input.val());
+		input.removeClass("is-invalid").addClass("is-valid");
+	} else {
+		O.setDutyCycle(null);
+		O.setDutyCycleLabel(null);
+		input.removeClass("is-valid").addClass("is-invalid");
+	}
+});
+
+$('#feedunit').on('change', function() {
 	var input=$(this);
 	var re = /^.+$/;
-	var is_valid = re.test(input.val());
+    var is_valid = re.test(input.val());
 	if(is_valid){
-		proceedOK = true;
+		O.setFeedUnit($("#feedunit option:selected").val());
 		input.removeClass("is-invalid").addClass("is-valid");
 	} else {
-		proceedOK= false;
+		O.setFeedUnit(null);
 		input.removeClass("is-valid").addClass("is-invalid");
 	}
+});
+
+$('#groundeffect').on('change', function() {
+	O.setGroundEffect($('#groundeffect').prop("checked"));
+	$(this).removeClass("is-invalid").addClass("is-valid");
 });
 
 // Oneshot calculator
 function runOETCalc(){
 
-    O = new OET65Calc();
-    O.setFreq(parseFloat(document.getElementById("frequency").value));
-    O.setGainByDBI(parseFloat(document.getElementById("antennagain").value));
-
     var pwrInAnt;
-    var dutyCycle = parseFloat(document.getElementById("dutycycle").value);
     var timeavgmod;
 
 	// Which form are we in? If it's the quick form, the power field is already adjusted
 	// if it's the walkthrough, it's not
 	if( ! document.getElementById("feedloss") ){
-		pwrInAnt = document.getElementById("power").value;
+		pwrInAnt = O.getPower();
 		console.log("pwrInAnt: precalc: " + pwrInAnt);
 		// Calculate and display the ERP
-		var G = parseFloat(document.getElementById("antennagain").value);
-		var P = parseFloat(W2dBW(pwrInAnt));
+		var G = parseFloat(O.getGainCalcDBI());
+		var P = parseFloat(W2dBW(O.getPower()));
 		var E = parseFloat(dBW2W( P + G ));
 		document.getElementById("erp").value = E;
 		console.log("pwrInAnt: calc: " + E);
 	} else {
-		var P = parseFloat(W2dBW(parseFloat(document.getElementById("power").value)));
-		var ALen = parseFloat(document.getElementById("feedlength").value);
-		var ALossRate = parseFloat(document.getElementById("feedloss").value);
+		var P = parseFloat(W2dBW(O.getPower()));
+		var ALen = parseFloat(O.getFeedLength());
+		var ALossRate = parseFloat(O.getFeedLoss());
 		var ALoss = ALossRate * ( ALen / 100);
 		pwrInAnt = dBW2W( P - ALoss);
 		console.log("pwrInAnt: calc: " + pwrInAnt);
 
 		// Calculate and display the ERP
-        var G = parseFloat(document.getElementById("antennagain").value);
+        var G = parseFloat(O.getGainCalcDBI());
         document.getElementById("erp").value = dBW2W(P - ALoss + G);
 	}
 
@@ -173,42 +235,63 @@ function runOETCalc(){
 		O.groundEffectOn();
 	}
 
-    // controlled access calculation
-    timeavgmod = timeAvgPercent(
-        parseFloat(document.getElementById("txtime").value),
-        parseFloat(document.getElementById("rxtime").value),
-        6   // see OET-65 Appendix A Table 1 averaging time
-        );
+	OETReady = false;
+	if( ! document.getElementById("feedloss") ) {
+		OETReady = O.isReadyQuick();
+	} else {
+		OETReady = O.isReadyGuided();
+	}
 
-    O.setPower(pwrInAnt * dutyCycle * timeavgmod);
-
-	if( ! (O.isReady() && proceedOK )){
+	if( ! OETReady ){
 		// only reset the quick form
 		if( ! document.getElementById("feedloss") ){
 			document.getElementById("report").reset();
 		}
 		alert("Not all data is entered/valid");
+		return;
 	}
-    document.getElementById("cmapd").value = getPwrDensityControlled(document.getElementById("frequency").value).toFixed(2);
+
+    // controlled access calculation
+    var timeavgmod = timeAvgPercent(
+        parseFloat(O.getTxTime()),
+        parseFloat(O.getRxTime()),
+        6   // see OET-65 Appendix A Table 1 averaging time
+        );
+
+    O.setControlledDTAEIRP(pwrInAnt * O.getDutyCycle() * timeavgmod);
+    document.getElementById("cmapd").value = getPwrDensityControlled(O.getFreq()).toFixed(2);
     document.getElementById("cmsdm").value = O.getMinDistanceControlled().toFixed(2);
     document.getElementById("cmsdf").value = O.getMinDistanceControlledFeet().toFixed(2);
-    document.getElementById("csteirpavg").value = O.getPower().toFixed(1);
+    document.getElementById("csteirpavg").value = O.getControlledDTAEIRP().toFixed(1);
 
     // uncontrolled access calculation
     timeavgmod = timeAvgPercent(
-        parseFloat(document.getElementById("txtime").value),
-        parseFloat(document.getElementById("rxtime").value),
+        parseFloat(O.getTxTime()),
+        parseFloat(O.getRxTime()),
         30   // see OET-65 Appendix A Table 1 averaging time
         );
-    
-    O.setPower(pwrInAnt * dutyCycle * timeavgmod);  
-    document.getElementById("umapd").value = getPwrDensityUncontrolled(document.getElementById("frequency").value).toFixed(2);
+    O.setUncontrolledDTAEIRP(pwrInAnt * O.getDutyCycle() * timeavgmod);  
+    document.getElementById("umapd").value = getPwrDensityUncontrolled(O.getFreq()).toFixed(2);
     document.getElementById("umsdm").value = O.getMinDistanceUncontrolled().toFixed(2);
     document.getElementById("umsdf").value = O.getMinDistanceUncontrolledFeet().toFixed(2);
-    document.getElementById("usteirpavg").value = O.getPower().toFixed(1);
+    document.getElementById("usteirpavg").value = O.getUncontrolledDTAEIRP().toFixed(1);
 
 	// jump back to the top of the document
 	document.body.scrollTop = 0; // For Safari
 	document.documentElement.scrollTop = 0; // For Chrome, Firefox, Opera
-    
+
+	// save the current object
+	localStorage.setItem("OET65", O.serialize());
 }
+
+function clearOETCalc(){
+	localStorage.removeItem("OET65");
+	$("#calculator").trigger("reset");
+	$("#report").trigger("reset");
+}
+
+function goPrint(){
+    localStorage.setItem("OET65", O.serialize());
+    window.location = "print.html";
+}
+

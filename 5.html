@@ -108,9 +108,9 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <label class="col-md-8 col-form-label" for="dutycycle">Duty Cycle (%)</label>
+                                <label class="col-md-8 col-form-label" for="dutycyclepct">Duty Cycle (%)</label>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control-plaintext" id="dutycycle" name="dutycycle" readonly>
+                                    <input type="text" class="form-control-plaintext" id="dutycyclepct" name="dutycyclepct" readonly>
                                 </div>
                             </div>
                             <div class="row">
@@ -215,7 +215,7 @@
             <div class="mb-3 text-center">
                 <button type="button" class="d-print-none shadow" onclick="restartClick('1')" aria-label="New Assessment">New Assessment&nbsp;<svg class="svgicon"><use href="#refresh"></use></svg></button>
                 <button type="button" class="d-print-none shadow" onclick="nextClick('6')" aria-label="Changes">Change Freq or Power&nbsp;<svg class="svgicon"><use href="#adjustments"></use></svg></button>
-                <button type="button" class="d-print-none shadow" onclick="nextClick('print')" aria-label="Print">Print Assessment&nbsp;<svg class="svgicon"><use href="#printer"></use></svg></button>
+                <button type="button" class="d-print-none shadow" onclick="goPrint()" aria-label="Print">Print Assessment&nbsp;<svg class="svgicon"><use href="#printer"></use></svg></button>
             </div>
         </div>
 	</div>

@@ -1,97 +1,9 @@
-// Deal with cookies first
-function set_cookie ( name, value ) {
-	var cookie_string = name + "=" + escape ( value );
-	cookie_string += "; expires=0; SameSite=Strict;";
-	document.cookie = cookie_string;
-}
-
-function get_cookie ( cookie_name ) {
-	var results = document.cookie.match ( '(^|;) ?' + cookie_name + '=([^;]*)(;|$)' );
-	if ( results ) { 
-	    return ( unescape ( results[2] ) ); 
-	} else {
-	    return null;
-	};
-};
-
-function populateCookieFromForm ( cookieName ) {  
-    var encodedCookie;
-    var preCookieObj = '{';
-    var allMainElements = $('#report').find('input, select, checkbox');
-    console.log("Found elements: " + allMainElements.length);
-    for (var i=0; i < allMainElements.length; i++) 
-	{
-        
-        if( allMainElements[i].type == "checkbox"){
-            console.log("Cookie Element: " + allMainElements[i].name + ":" + allMainElements[i].checked)
-            preCookieObj = preCookieObj + '"' + allMainElements[i].name +'":"'+ allMainElements[i].checked +'",';
-        } else {
-            console.log("Cookie Element: " + allMainElements[i].name + ":" + allMainElements[i].value)
-	        preCookieObj = preCookieObj + '"' + allMainElements[i].name +'":"'+ allMainElements[i].value +'",';     
-        }
-	};
-
-    preCookieObj = preCookieObj.substring(0, preCookieObj.length - 1);
-    preCookieObj = preCookieObj + '}';
-
-    //<!-- btoa() encodes 'string' argument into Base64 encoding --> 
-    encodedCookie = btoa( preCookieObj );
-    set_cookie(cookieName, encodedCookie);
-};
-
-function populateFormFromCookie (cookieName) {
-    if ( ! get_cookie ( cookieName ) )
-	{
-		//<!-- Do Nothing - No Cookie For this form set. -->
-	} else {
-	    //<!-- atob() decodes 'string' argument from Base64 encoding --> 
-	    jSONCookieObj = atob( get_cookie ( cookieName ) ) ;     
-	    jSONObj = JSON.parse( jSONCookieObj );2
-	    var allMainElements = $('#report').find('input, select');
-
-	    for (var i=0; i < allMainElements.length; i++)  {
-			var elementName = allMainElements[i].name;
-            var elementValue = jSONObj[elementName];
-               
-            if( elementValue === undefined){
-                allMainElements[i].value = "";  
-            } else {
-                if( allMainElements[i].type == "checkbox" ){
-                    if( elementValue == "true" ){
-                        allMainElements[i].checked = true;
-                    } else {
-                        allMainElements[i].checked = false;
-                    } 
-                } else {
-                    allMainElements[i].value = elementValue;
-                }      
-            }	
-	    }
-	}
-}
-
-// Current time is always useful
-function currentTimestamp() {
-	function pad(n) { return n<10 ? '0'+n : n }
-	var d = new Date();
-	return d.getUTCFullYear()+'-'
-         + pad(d.getUTCMonth()+1)+'-'
-         + pad(d.getUTCDate())+' '
-         + pad(d.getUTCHours())+':'
-         + pad(d.getUTCMinutes())+':'
-         + pad(d.getUTCSeconds())+' ';
-};
-
 // All load hooks
 window.addEventListener("load", function(){
-    populateFormFromCookie("RFExposure");
-    proceedOK = true;
-    var fileName = location.href.split("/").slice(-1);
+    var fileName = location.href.split("/").slice(-1)[0];
 
     // calculate the form if we're on the display page
     if( fileName == "5.html" || fileName == "print.html"){
-        var now = currentTimestamp();
-        document.getElementById("x-timestamp").innerText = now + " UTC";
         runOETCalc();
     }
 
@@ -132,19 +44,33 @@ window.addEventListener("focus", function(){
 
 // Nav intercepts to set/retrieve the cookies 
 function nextClick(nextpg){
+	let proceedOK = true;
+	let allReportElements = $('#report').find('input, select, checkbox');
+	for( let i=0; i < allReportElements.length; i++){
+		if( ! $("#" + allReportElements[i].id).hasClass("is-valid") ){
+			proceedOK = false;
+		}
+	}
+
+	var fileName = location.href.split("/").slice(-1);
+   	if( fileName == "5.html"){
+		proceedOK = true;
+	}
+
     if( proceedOK == true){
-        populateCookieFromForm("RFExposure");
+		localStorage.setItem("OET65", O.serialize());
         window.location = nextpg + ".html";
     } else {
-        alert("Fix form errors");
+        alert("Complete all fields to continue");
     }
     
 }
+
 function backClick(backpg){
-    populateCookieFromForm("RFExposure");
     window.location = backpg + ".html";
 }
-function restartClick(backpg){
-    set_cookie("RFExposure", "");
-    window.location = backpg + ".html";
+
+function restartClick(){
+	localStorage.removeItem("OET65");
+    window.location = "index.html";
 }

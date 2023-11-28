@@ -41,7 +41,7 @@
 				<p>This is the quick calculator for completing an OET-65 RF exposure 
 					assessment and intended for users who already understand the various
 					attributes required for evaluation. For a step-by-step walk-through 
-					of the assessment, go <a href="#">here</a>.
+					of the assessment, go <a href="1.html">here</a>.
 			</div>
 			<div class="row">
 				<div class="container-md">
@@ -78,17 +78,17 @@
 										<td><label for="dutycycle">Duty Cycle</label></td>
 										<td>
 											<select class="form-select" aria-label="select duty cycle" id="dutycycle" name="dutycycle">
-												<option value="-1" selected="selected">Choose Duty Cycle Estimate</option>
-												<option value="0.20">Conversational SSB, no speech processing (mode duty cycle=20%)</option>
-												<option value="0.50">Conversational SSB, heavy speech processing (duty cycle=50%)</option>
-												<option value="0.40">Conversational CW (duty cycle=40%)</option>
-												<option value="1.00">FM (duty cycle=100%)</option>
-												<option value="1.00">AM (duty cycle=100%)</option>
-												<option value="1.00">FSK/RTTY (duty cycle=100%)</option>
-												<option value="1.00">AFSK SSB (duty cycle=100%)</option>
-												<option value="1.00">FT/JT/JS Digital Modes (duty cycle=100%)</option>
-												<option value="1.00">Carrier Always On, i.e., for Tuning Up (duty cycle=100%)</option>
-												<option value="1.00">For all others, or if unknown, assume worst case scenario (duty cycle=100%)</option>
+												<option value="ZZZ" selected="selected">Choose Duty Cycle Estimate</option>
+												<option value="CSSBN" label="Conversational SSB, no speech processing (mode duty cycle=20%)">0.20</option>
+												<option value="CSSBH" label="Conversational SSB, heavy speech processing (duty cycle=50%)">0.50</option>
+												<option value="CCW" label="Conversational CW (duty cycle=40%)">0.40</option>
+												<option value="FM" label="FM (duty cycle=100%)">1.00</option>
+												<option value="AM" label="AM (duty cycle=100%)">1.00</option>
+												<option value="FSK" label="FSK/RTTY (duty cycle=100%)">1.00</option>
+												<option value="AFSK" label="AFSK SSB (duty cycle=100%)">1.00</option>
+												<option value="FT" label="FT/JT/JS Digital Modes (duty cycle=100%)">1.00</option>
+												<option value="CAO" label="Carrier Always On, i.e., for Tuning Up (duty cycle=100%)">1.00</option>
+												<option value="OTHER" label="For all others, or if unknown, assume worst case scenario (duty cycle=100%)">1.00</option>
 											</select>
 										</td>
 									</tr>
@@ -132,7 +132,7 @@
 									<tr>
 										<td colspan="2">
 											<button type="button" onclick="runOETCalc()" aria-label="Calculate" class="d-print-none">Calculate&nbsp;<svg class="svgicon"><use href="#calculate"></use></svg></button>
-											<button type="button" onclick="printOETCalc()" aria-label="Print" class="d-print-none">Print Assessment&nbsp;<svg class="svgicon"><use href="#printer"></use></svg></button>
+											<button type="button" onclick="goPrint()" aria-label="Print" class="d-print-none">Print Assessment&nbsp;<svg class="svgicon"><use href="#printer"></use></svg></button>
 											<button type="button" onclick="clearOETCalc()" aria-label="Clear Calculation" class="d-print-none">Clear Calculation&nbsp;<svg class="svgicon"><use href="#trash"></use></svg></button>
 										</td>
 									</tr>

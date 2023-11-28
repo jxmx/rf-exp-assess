@@ -18,6 +18,9 @@
             <symbol id="lt-chevron" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
             </symbol>
+            <symbol id="trash" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+            </symbol>
         </defs>
     </svg>
     <header>
@@ -40,8 +43,9 @@
                     small losses from barrel connectors, etc. will be ignored.
                 </p>
                 <p>Measure or otherwise determine the length of the feedline. This should be the completele
-                    length of all feedline exiting your radio/amp from the last page. Include any jumpers or drip loops. Record this number below in feet.
-                    Meters or feet can be used here interchangably so long as the dB loss is expressed in the same unit of length.
+                    length of all feedline exiting your radio/amp from the last page. Include any jumpers or drip loops. Recird this number below.
+                    The unit of measurement can be either meters or feet below so long as the length and the dB loss per 100 "unit" is the
+					same unit of length. 
                 </p>
                 <p>Determine the type of feedline used between your radio and the antenna. The loss is, in general,
                     greater for thinner coax and less for thicker coax. If you know the manufacturer of the feedline
@@ -68,7 +72,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="feedtype">Feedline Type</label>
-                                    <input type="text" class="form-control" id="radioname" name="feedtype" required>
+                                    <input type="text" class="form-control" id="feedtype" name="feedtype" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="feedunit">Feedline Unit of Measure</label>
@@ -76,12 +80,12 @@
                                         and the feedline losses per 100 units must be int he same unit of measurement
                                         or the calculation will be in correct.                                    </i>
                                     <select class="form-select" aria-label="select duty cycle" id="feedunit" name="feedunit">
-                                        <option value="ft" selected="selected">ft</option>
-                                        <option value="m">m</option>
+                                        <option value="ft" label="ft" selected="selected">ft</option>
+                                        <option value="m" label="m">m</option>
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="feedlength">Feedline Length (ft)</label>
+                                    <label for="feedlength">Feedline Length</label>
                                     <br><i>Number only; maximum of one decimal place (e.g. 25.5) - Do not include any unit of meature (e.g. ft, m)</i>
                                     <input type="text" class="form-control" id="feedlength" name="feedlength" required>
                                 </div>
@@ -93,6 +97,7 @@
                                 <div class="mb-3">
                                     <button type="button" class="shadow" onclick="backClick('1')"><svg class="svgicon"><use href="#lt-chevron"></use></svg>&nbsp;Back</button>
                                     <button type="button" class="shadow" onclick="nextClick('3')">Next&nbsp;<svg class="svgicon"><use href="#rt-chevron"></use></svg></button>
+									<button type="button" onclick="restartClick()" aria-label="Clear Calculation" class="shadow">Clear Calculation&nbsp;<svg class="svgicon"><use href="#trash"></use></svg></button>
                                 </div>
                             </div>
 
@@ -150,6 +155,7 @@
     </div>
 </footer>
 <script src="js/jquery-3.7.1.min.js"></script>
+<script src="js/oet65.js"></script>
 <script src="js/rfecalc.js"></script>
 <script src="js/rf.js"></script>
 </body>

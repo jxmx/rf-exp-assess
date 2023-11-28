@@ -44,10 +44,10 @@
         </div>
         <div class="row">
                 <p>Enter the radio, frequency, and power level to be evaluated:</p>
-                <form id="report" name="report" class="form-l">
                     <div class="container-md">
                         <div class="row">
                             <div class="col-md-6">
+								<form id="report" name="report" class="form-l">
                                 <div class="mb-3">
                                     <label for="frequency">Frequency</label>
                                     <br><i>Enter the frequency in MHz in the format NNN.NNN. Trailing zeros are not necessary.</i>
@@ -61,8 +61,10 @@
                                 <div class="mb-3">
                                     <button type="button" onclick="nextClick('5')">Recalculate&nbsp;<svg class="svgicon"><use href="#refresh"></use></svg></button>
                                 </div>
+								</form>
                             </div>
                             <div class="col-md-6">
+								<form class="form-l">
                                 <div class="mb-3 row bg-primary">
                                     <p class="text-center text-white text-bold"><b>Entered Station Information</b></p>
                                 </div>
@@ -104,9 +106,9 @@
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
-                                    <label class="col-md-6 col-form-label" for="dutycycle">Duty Cycle (%)</label>
+                                    <label class="col-md-6 col-form-label" for="dutycyclepct">Duty Cycle (%)</label>
                                     <div class="col-md-6">
-                                        <input type="text" class="form-control-plaintext" id="dutycycle" name="dutycycle" readonly>
+                                        <input type="text" class="form-control-plaintext" id="dutycyclepct" name="dutycyclepct" readonly>
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
@@ -127,10 +129,10 @@
                                         <input class="form-check-input" type="checkbox" value="" id="groundeffect" name="groundeffect" readonly>
                                     </div>
                                 </div>
+								</form>
                             </div>
                         </div>
                     </div>
-                </form>
             </div>                
         </div>
 	</div>
@@ -159,6 +161,7 @@
     </div>
 </footer>
 <script src="js/jquery-3.7.1.min.js"></script>
+<script src="js/oet65.js"></script>
 <script src="js/rfecalc.js"></script>
 <script src="js/rf.js"></script>
 </body>
